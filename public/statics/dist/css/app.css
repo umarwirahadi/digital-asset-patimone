@@ -1,0 +1,23 @@
+.card-height {
+    /* height: 500px; */
+    min-height: 500px;
+}
+.card-height-lg {
+    min-height: 1024px;
+}
+
+/* @media (max-width:768px) {
+    .card-height {
+        height: auto;
+        min-height: 150px;
+        max-height: 500px;
+    }
+    
+} */
+
+.img-profile {
+    max-width: 90%;
+    max-height: 400px;
+    height: auto;
+    width: auto;
+}
