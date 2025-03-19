@@ -16,14 +16,13 @@ class ProductImageController extends Controller
     }
 
     public function index($product_id){
-        $this->product_id = $product_id;
+        // $this->product_id = $product_id;
         $data = ['title'=>'Assets','subtitle'=>'List Photo of Product','productimages'=>ProductImage::with('product')->where('product_id',$this->product_id)->get()];
         return view('assets.products.photo',compact('data'));
     }
 
     public function create(){
-        $data = ['title'=>'Assets','subtitle'=>'Add new Photo Product','productimages'=>ProductImage::with('product')->where('product_id',$this->product_id)->get()];
-        return $data;
+        $data = ['title'=>'Assets','subtitle'=>'Add new Photo Product','product'=>Product::findOrFail($this->product_id)];
         return view('assets.products.createphoto',compact('data'));
     }
     

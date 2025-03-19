@@ -38,7 +38,7 @@
 
 
             </div>
-            <div class="card-footer">Data Products</div>
+            <div class="card-footer">Data Productss</div>
         </div>
     </div>
 </div>

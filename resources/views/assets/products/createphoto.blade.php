@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header p-1">
-            <h3 class="card-title"><a href="{{ route('product.create') }}" class="btn btn-link"><i class="bi bi-file-earmark-plus"></i> New Photo for this product</a></h3>
+            {{-- <h3 class="card-title"><a href=" " class="btn btn-link"><i class="bi bi-file-earmark-plus"></i> New Photo for this product</a></h3> --}}
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse" title="Collapse">
                         <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
@@ -25,9 +25,15 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="row mb-3">
-                            <label for="file_path" class="col-sm-3 col-form-label">Document Delivery Order(*.pdf)</label>
-                            <div class="col-sm-9">
-                                <div class="input-group mb-3">
+                            <label for="file_path" class="col-sm-4 col-form-label">Product</label>
+                            <div class="col-sm-8">
+                               <textarea name="" id="" cols="30" rows="10">{{ $data['product']->code }}</textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="file_path" class="col-sm-4 col-form-label">Upload Photo</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
                                     <input type="file" class="form-control" id="file_path" name="file_path" accept="application/pdf,application/vnd.ms-excel">
                                     <label class="input-group-text" for="file_path">Upload</label>
                                     @error('file_path')

@@ -58,7 +58,7 @@ Route::get('product/edit/{id}',[App\Http\Controllers\ProductController::class,'e
 Route::put('product/update/{id}',[App\Http\Controllers\ProductController::class,'update'])->name('product.update');
 Route::delete('product/{id}',[App\Http\Controllers\ProductController::class,'destroy'])->name('product.destroy');
 Route::get('product/photo/{id}',[App\Http\Controllers\ProductImageController::class,'index'])->name('product.photo.index');
-Route::get('product/photo/create',[App\Http\Controllers\ProductImageController::class,'create'])->name('product.photo.create');
+Route::get('product/photo/create-photo',[App\Http\Controllers\ProductImageController::class,'create'])->name('product.photo.create');
 
 
 
