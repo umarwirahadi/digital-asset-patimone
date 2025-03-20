@@ -50,7 +50,7 @@
                                     <td>
                                         <a href="{{ route('product.edit',$product->id) }}" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>
                                         <button type="button" class="btn btn-sm btn-danger btn-destroy" data-url="{{ route('product.destroy',$product->id) }}"><i class="bi bi-trash3"></i> Delete</button>
-                                        <a href="{{ route('product.photo.index',$product->id) }}" class="btn btn-sm btn-info" ><i class="bi bi-images"></i> Photo</a>
+                                        <a href="{{ route('product.photo.index',['code'=>$product->code]) }}" class="btn btn-sm btn-info" ><i class="bi bi-images"></i> Photo</a>
                                         @isset($product->file_path)
                                             <a download="delivery_order" href="{{ asset($product->file_path_location) }}" class="btn btn-sm btn-warning" ><i class="bi bi-file-earmark-pdf"></i> DO File</a>                                            
                                         @endisset

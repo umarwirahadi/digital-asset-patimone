@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,8 +58,15 @@ Route::post('product/store',[App\Http\Controllers\ProductController::class,'stor
 Route::get('product/edit/{id}',[App\Http\Controllers\ProductController::class,'edit'])->name('product.edit');
 Route::put('product/update/{id}',[App\Http\Controllers\ProductController::class,'update'])->name('product.update');
 Route::delete('product/{id}',[App\Http\Controllers\ProductController::class,'destroy'])->name('product.destroy');
-Route::get('product/photo/{id}',[App\Http\Controllers\ProductImageController::class,'index'])->name('product.photo.index');
+
+Route::get('product/photo/',[App\Http\Controllers\ProductImageController::class,'index'])->name('product.photo.index');
 Route::get('product/photo/create-photo',[App\Http\Controllers\ProductImageController::class,'create'])->name('product.photo.create');
+Route::post('product/photo/store-photo',[App\Http\Controllers\ProductImageController::class,'store'])->name('product.photo.store');
+Route::get('product/photo/edit-photo',[App\Http\Controllers\ProductImageController::class,'edit'])->name('product.photo.edit');
+Route::put('product/photo/update-photo/{id}',[App\Http\Controllers\ProductImageController::class,'update'])->name('product.photo.update');
+Route::delete('product/photo/destroy-photo/{id}',[App\Http\Controllers\ProductImageController::class,'destroy'])->name('product.photo.destroy');
+
+
 
 
 

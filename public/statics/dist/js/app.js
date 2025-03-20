@@ -60,4 +60,20 @@ $(document).ready(function() {
             }
           });        
     })
+
+    $(document).on('change','#file_path',function(){
+        const file = this.files[0];
+        const prevImage = $('#imageUserPreview');
+
+        if(file) {
+            const reader = new FileReader();
+            reader.onload = function(e){
+                prevImage.attr('src',e.target.result);
+                prevImage.show().style.width = '200px';
+            }
+            reader.readAsDataURL(file);           
+        } else {
+            prevImage.hide();
+        }
+    })
 });

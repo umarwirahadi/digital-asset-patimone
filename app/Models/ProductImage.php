@@ -16,10 +16,10 @@ class ProductImage extends Model
 
 
     public function product(){
-        return $this->hasOne(Product::class,'product_id');
+        return $this->belongsTo(Product::class);
     }
 
-    public function getproduct_urlAttribute(){        
-        return asset('statics/files/'.$this->product_url);      
+    public function getImageUrlAttribute(){        
+        return asset('statics/img/'.$this->product_url);      
     }
 }
