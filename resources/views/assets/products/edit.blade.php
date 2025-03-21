@@ -73,10 +73,27 @@
                                 </div>
                                 <div class="row mb-3">
                                     <label for="quantity" class="col-sm-3 col-form-label">Quantity</label>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-4">
                                         <input type="text" class="form-control @error('quantity') is-invalid @enderror"
                                             id="quantity" name="quantity" value="{{ $data['product']->quantity }}">
                                         @error('quantity')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <select name="unit" id="unit" class="form-select">
+                                            <option value="unit">Unit</option>
+                                            <option value="set">set</option>
+                                            <option value="pack">pack</option>
+                                            <option value="box">Box</option>
+                                            <option value="ls">ls</option>
+                                            <option value="nos">nos</option>
+                                            <option value="nos">nos</option>
+                                            <option value="nos">m</option>
+                                        </select>
+                                        @error('unit')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

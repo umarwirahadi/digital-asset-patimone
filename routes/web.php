@@ -66,6 +66,25 @@ Route::get('product/photo/edit-photo',[App\Http\Controllers\ProductImageControll
 Route::put('product/photo/update-photo/{id}',[App\Http\Controllers\ProductImageController::class,'update'])->name('product.photo.update');
 Route::delete('product/photo/destroy-photo/{id}',[App\Http\Controllers\ProductImageController::class,'destroy'])->name('product.photo.destroy');
 
+Route::get('employee/',[App\Http\Controllers\EmployeeController::class,'index'])->name('employee.index');
+Route::get('employee/create',[App\Http\Controllers\EmployeeController::class,'create'])->name('employee.create');
+Route::post('employee/store',[App\Http\Controllers\EmployeeController::class,'store'])->name('employee.store');
+Route::get('employee/edit/{id}',[App\Http\Controllers\EmployeeController::class,'edit'])->name('employee.edit');
+Route::put('employee/update/{id}',[App\Http\Controllers\EmployeeController::class,'update'])->name('employee.update');
+Route::delete('employee/destroy/{id}',[App\Http\Controllers\EmployeeController::class,'destroy'])->name('employee.destroy');
+
+Route::get('position/',[App\Http\Controllers\PositionController::class,'index'])->name('position.index');
+Route::get('position/create',[App\Http\Controllers\PositionController::class,'create'])->name('position.create');
+Route::post('position/store',[App\Http\Controllers\PositionController::class,'store'])->name('position.store');
+Route::get('position/edit/{id}',[App\Http\Controllers\PositionController::class,'edit'])->name('position.edit');
+Route::put('position/update/{id}',[App\Http\Controllers\PositionController::class,'update'])->name('position.update');
+Route::delete('position/destroy/{id}',[App\Http\Controllers\PositionController::class,'destroy'])->name('position.destroy');
+
+
+
+
+
+
 
 
 

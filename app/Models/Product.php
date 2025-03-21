@@ -15,6 +15,7 @@ class Product extends Model
         'code',
         'name',
         'quantity',
+        'unit',
         'description',
         'brand',
         'model',

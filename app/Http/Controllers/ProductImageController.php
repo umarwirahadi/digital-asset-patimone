@@ -69,7 +69,7 @@ class ProductImageController extends Controller
         try {
             $validatedData = $request->validate([
                 'product_id' => 'required|exists:products,id',
-                'file_path'=>'required|image|mimes:jpg,jpeg,png|max:10240',
+                'file_path'=>'nullable|image|mimes:jpg,jpeg,png|max:10240',
                 'description'=>'nullable|string|max:1000'
             ],['file_path.required'=>'Please Upload Photo first..!','file_path.max'=>'the maximum upload file exeeded to 10MB']);         
             $imageProduct = ProductImage::findOrFail($id);
@@ -95,6 +95,9 @@ class ProductImageController extends Controller
     public function destroy($id){
         try {
             $productImage = ProductImage::findOrFail($id);            
+            if ($productImage->product_url || file_exists(public_path('statics/img/') . $productImage->product_url)) {
+                unlink(public_path('statics/img/') . $productImage->product_url);
+            }
             $result = $productImage->delete();
             if($result) {
                 $response = ['success'=>true,'message'=>'Photo product has been deleted..!'];

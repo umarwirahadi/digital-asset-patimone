@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title"><a href="{{ route('product.index') }}" class="btn btn-link text text-danger"><i
+                <h3 class="card-title"><a href="{{ route('employee.index') }}" class="btn btn-link text text-danger"><i
                             class="bi bi-arrow-counterclockwise"></i> Back</a></h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse" title="Collapse">
@@ -17,33 +17,31 @@
                 </div>
             </div>
             <div class="card-body card-height">
-                <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('employee.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body card-height">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-9">                              
+                               
                                 <div class="row mb-3">
-                                    <label for="package_id" class="col-sm-3 col-form-label">Package</label>
+                                    <label for="position_id" class="col-sm-3 col-form-label">Position</label>
                                     <div class="col-sm-9">
-                                        <select name="package_id" id="package_id" class="form-select">
-                                            @foreach ($data['packages'] as $package)
-                                            <option value="{{ $package->id }}">{{ $package->package_name }}</option>
-                                            @endforeach
+                                        <select name="position_id" id="position_id" class="form-select">
+                                            @forelse ($data['positions'] as $position)
+                                                <option value="{{ $position->id }}">{{ $position->code }} - {{ $position->position_name }}</option>
+                                            @empty
+                                                <option>No Position available</option>
+                                            @endforelse
                                         </select>
+                                        @error('position_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="category_id" class="col-sm-3 col-form-label">Category Name</label>
-                                    <div class="col-sm-9">
-                                        <select name="category_id" id="category_id" class="form-select">
-                                            @foreach ($data['categories'] as $category)
-                                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="code" class="col-sm-3 col-form-label">Product code</label>
+                                    <label for="code" class="col-sm-3 col-form-label">Employee code</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control @error('code') is-invalid @enderror"
                                             id="code" name="code" value="{{ old('code') }}">
@@ -55,11 +53,11 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="name" class="col-sm-3 col-form-label">Product Name</label>
+                                    <label for="full_name" class="col-sm-3 col-form-label">Full Name</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                            id="name" name="name" value="{{ old('name') }}">
-                                        @error('name')
+                                        <input type="text" class="form-control @error('full_name') is-invalid @enderror"
+                                            id="full_name" name="full_name" value="{{ old('full_name') }}">
+                                        @error('full_name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -67,28 +65,22 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="quantity" class="col-sm-3 col-form-label">Quantity / Unit</label>
+                                    <label for="birth_date" class="col-sm-3 col-form-label">Birth Date / Sex</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control @error('quantity') is-invalid @enderror"
-                                            id="quantity" name="quantity" value="{{ old('quantity') }}">
-                                        @error('quantity')
+                                        <input type="date" class="form-control @error('birth_date') is-invalid @enderror"
+                                            id="birth_date" name="birth_date" value="{{ old('birth_date') }}">
+                                        @error('birth_date')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                         @enderror
                                     </div>
                                     <div class="col-sm-5">
-                                        <select name="unit" id="unit" class="form-select">
-                                            <option value="unit">Unit</option>
-                                            <option value="set">set</option>
-                                            <option value="pack">pack</option>
-                                            <option value="box">Box</option>
-                                            <option value="ls">ls</option>
-                                            <option value="nos">nos</option>
-                                            <option value="nos">nos</option>
-                                            <option value="nos">m</option>
+                                        <select name="sex" id="sex" class="form-select">
+                                            <option value="M">Male</option>
+                                            <option value="F">Female</option>                                            
                                         </select>
-                                        @error('unit')
+                                        @error('sex')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -96,10 +88,10 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="brand" class="col-sm-3 col-form-label">Brand/model</label>
+                                    <label for="phone" class="col-sm-3 col-form-label">Phone/Email</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control @error('brand') is-invalid @enderror"
-                                            id="brand" name="brand" value="{{ old('brand') }}" placeholder="Brand">
+                                        <input type="text" class="form-control @error('phone') is-invalid @enderror"
+                                            id="phone" name="phone" value="{{ old('phone') }}" placeholder="phone number">
                                         @error('brand')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -228,6 +220,12 @@
                                         <button type="reset" class="btn btn-danger"><i class="bi bi-x-circle"></i>
                                             Reset</button>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="card">
+                                    <img src="{{ asset('statics/dist/assets/img/avatar5.png') }}" alt="" class="img-thumbnail img-fluid img-responsive"
+                                        id="imageUserPreview">
                                 </div>
                             </div>
                         </div>

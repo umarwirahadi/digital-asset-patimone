@@ -31,16 +31,16 @@
                     </div>
                     @forelse ($data['product']->images as $photo)
                         <div class="card mx-2 p-1" style="width:300px">
-                        <img class="card-img-top" src="{{ $photo->image_url }}" alt="photo assets">                        
+                        <img class="card-img-top card-image-responsive" src="{{ $photo->image_url }}" alt="photo assets">                        
 
                         <div class="card-body">
                           <p>{{ $photo->description }}</p>                          
                         </div>
-                        <div class="card-footer p-1">
+                        <div class="card-footer p-1 photo-product">
                             <p class="m-0"><span class="badge bg-dark text-white">Created at {{ $photo->created_at->format('d-M-y') }}</span></p>
                             <div class="d-flex justify-content-between">
-                                <a href="" class="">Download</a>
-                                <a href="javascript:void(0)" class="btn-destroy" data-url="">Delete</a>
+                                <a download="photo" href="{{ $photo->image_url }}" class="">Download</a>
+                                <a href="javascript:void(0)" class="btn-destroy" data-url="{{ route('product.photo.destroy',$photo->id) }}">Delete</a>
                                 <a href="{{ route('product.photo.edit',['code'=>$photo->product->code,'image_id'=>$photo->id]) }}" class="">Edit</a>
                             </div>
 

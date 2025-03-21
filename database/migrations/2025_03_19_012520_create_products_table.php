@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('code',50)->nullable();
             $table->string('name',200);
             $table->integer('quantity')->default(0);
+            $table->string('unit')->nullable();
             $table->longText('description')->nullable();
             $table->string('brand',200)->nullable();
             $table->string('model',200)->nullable();

@@ -65,9 +65,8 @@
                         </div>
                         <div class="col-6">
                             <div class="card">
-                                <img src="{{ asset('statics/img/product.png') }}" alt="" class="img-thumbnail img-fluid"
-                                    id="imageUserPreview"
-                                    style="width: 700px; height:500px;object-fit: fit; aspect-ratio: 3/2;">
+                                <img src="{{ asset('statics/img/product.png') }}" alt="" class="img-thumbnail img-fluid img-responsive"
+                                    id="imageUserPreview">
                             </div>
                         </div>
 

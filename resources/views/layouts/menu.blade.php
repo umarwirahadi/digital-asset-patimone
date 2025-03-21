@@ -25,9 +25,21 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('employee.index') }}" class="nav-link">   
+                            <i class="nav-icon bi bi-arrow-right"></i>
+                            <p>Employees</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('category.index') }}" class="nav-link">   
                             <i class="nav-icon bi bi-arrow-right"></i>
                             <p>Category</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('position.index') }}" class="nav-link">   
+                            <i class="nav-icon bi bi-arrow-right"></i>
+                            <p>Position</p>
                         </a>
                     </li>
                     <li class="nav-item">

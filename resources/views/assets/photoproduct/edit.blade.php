@@ -23,12 +23,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
+                <strong>{{ var_dump($errors->all()) }}</strong>
                 <form action="{{ route('product.photo.update',$data['image']->id) }}" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         @csrf
                         @method('put')
                         <div class="col-6">
-                            <input type="hidden" name="product_id" value="{{ $data['image']->id }}">
+                            <input type="hidden" name="product_id" value="{{ $data['image']->product_id }}">
                             <div class="row mb-3">
                                 <label for="file_path" class="col-sm-4 col-form-label">Product</label>
                                 <div class="col-sm-8">
