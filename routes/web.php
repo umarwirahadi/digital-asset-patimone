@@ -66,6 +66,13 @@ Route::get('product/photo/edit-photo',[App\Http\Controllers\ProductImageControll
 Route::put('product/photo/update-photo/{id}',[App\Http\Controllers\ProductImageController::class,'update'])->name('product.photo.update');
 Route::delete('product/photo/destroy-photo/{id}',[App\Http\Controllers\ProductImageController::class,'destroy'])->name('product.photo.destroy');
 
+Route::get('asset-distribution/',[App\Http\Controllers\ProductDistributionController::class,'index'])->name('asset.distribution.index');
+Route::get('asset-distribution/create',[App\Http\Controllers\ProductDistributionController::class,'create'])->name('asset.distribution.create');
+Route::post('asset-distribution/store',[App\Http\Controllers\ProductDistributionController::class,'store'])->name('asset.distribution.store');
+Route::get('asset-distribution/{id}/edit',[App\Http\Controllers\ProductDistributionController::class,'edit'])->name('asset.distribution.edit');
+Route::put('asset-distribution/update/{id}',[App\Http\Controllers\ProductDistributionController::class,'update'])->name('asset.distribution.update');
+Route::delete('asset-distribution/destroy/{id}',[App\Http\Controllers\ProductDistributionController::class,'destroy'])->name('asset.distribution.destroy');
+
 Route::get('employee/',[App\Http\Controllers\EmployeeController::class,'index'])->name('employee.index');
 Route::get('employee/create',[App\Http\Controllers\EmployeeController::class,'create'])->name('employee.create');
 Route::post('employee/store',[App\Http\Controllers\EmployeeController::class,'store'])->name('employee.store');

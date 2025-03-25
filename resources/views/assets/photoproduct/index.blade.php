@@ -37,7 +37,7 @@
                           <p>{{ $photo->description }}</p>                          
                         </div>
                         <div class="card-footer p-1 photo-product">
-                            <p class="m-0"><span class="badge bg-dark text-white">Created at {{ $photo->created_at->format('d-M-y') }}</span></p>
+                            <p class="m-0"><span class="badge bg-danger text-white">Created at {{ $photo->created_at->format('d-M-y') }}</span></p>
                             <div class="d-flex justify-content-between">
                                 <a download="photo" href="{{ $photo->image_url }}" class="">Download</a>
                                 <a href="javascript:void(0)" class="btn-destroy" data-url="{{ route('product.photo.destroy',$photo->id) }}">Delete</a>

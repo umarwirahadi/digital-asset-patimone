@@ -17,13 +17,7 @@
                         <i class="nav-arrow bi bi-chevron-right"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-arrow-right"></i>
-                            <p>Asset</p>
-                        </a>
-                    </li>
+                <ul class="nav nav-treeview">                   
                     <li class="nav-item">
                         <a href="{{ route('employee.index') }}" class="nav-link">   
                             <i class="nav-icon bi bi-arrow-right"></i>
@@ -110,7 +104,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../UI/icons.html" class="nav-link">
+                        <a href="{{ route('asset.distribution.index') }}" class="nav-link">
                             <i class="nav-icon bi bi-circle"></i>
                             <p>Distribution</p>
                         </a>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductDistributionController extends Controller
@@ -13,8 +14,11 @@ class ProductDistributionController extends Controller
 
     public function index()
     {
-        $data = ['title'=>'Assets','subtitle'=>'List of Products','products'=>Product::all()];
-        return view('assets.products.index',compact('data'));
+        $product_code = request()->query('code');
+        request()->session()->put('code', $product_code);
+        $product = Product::with('distributions')->where('code', $product_code)->first();
+        $data = ['title'=>'Assets','subtitle'=>'Distribution of assets','product'=>$product];
+        return view('assets.distribution.index',compact('data'));
     }
 
     public function create(){

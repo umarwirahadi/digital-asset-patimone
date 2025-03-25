@@ -49,12 +49,7 @@
                                     <td>{!! $employee->status == '1' ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Not Active</span>' !!}</td>
                                     <td>
                                         <a href="{{ route('employee.edit',$employee->id) }}" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>
-                                        <button type="button" class="btn btn-sm btn-danger btn-destroy" data-url="{{ route('employee.destroy',$employee->id) }}"><i class="bi bi-trash3"></i> Delete</button>
-                                        <a href="{{ route('employee.photo.index',['code'=>$employee->code]) }}" class="btn btn-sm btn-info" ><i class="bi bi-images"></i> Photo</a>
-                                        @isset($employee->file_path)
-                                            <a download="delivery_order" href="{{ asset($employee->file_path_location) }}" class="btn btn-sm btn-warning" ><i class="bi bi-file-earmark-pdf"></i> DO File</a>                                            
-                                        @endisset
-
+                                        <button type="button" class="btn btn-sm btn-danger btn-destroy" data-url="{{ route('employee.destroy',$employee->id) }}"><i class="bi bi-trash3"></i> Delete</button>                                        
                                     </td>
                                 </tr>
                             @endforeach

@@ -31,6 +31,7 @@
                                 <th>Package</th>
                                 <th>Code</th>
                                 <th>Product Name</th>
+                                <th>Category</th>
                                 <th>QTY</th>
                                 <th>Description</th>
                                 <th>Status</th>
@@ -43,7 +44,8 @@
                                     <td>{{ ++$key }}</td>
                                     <td>{{ $product->package->short_name }}</td>
                                     <td>{{ $product->code }}</td>
-                                    <td>{{ $product->name }}</td>
+                                    <td><a href="{{ route('asset.distribution.index',['code'=> $product->code ]) }}">{{ $product->name }}</a></td>
+                                    <td>{{ $product->category->category_name }}</td>
                                     <td style="text-align: center">{{ $product->quantity }}</td>
                                     <td>{{ Illuminate\Support\Str::limit($product->description,30) }}</td>
                                     <td>{!! $product->status == '1' ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Not Active</span>' !!}</td>

@@ -42,7 +42,11 @@ class ProductImageController extends Controller
                 $image          = $request->file('file_path');
                 $unique_name    = uniqid().'-'.time().'.'.$image->getClientOriginalExtension();
                 $img = Image::make($image->getRealPath());
-                $img->resize(800,600);
+                $img->orientate(); // Fix image orientation
+                $img->resize(800, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
                 $img->save(public_path('/statics/img/').$unique_name);
                 // $image->move(public_path('/statics/img/'),$unique_name); without resize photo
             }  
@@ -77,7 +81,11 @@ class ProductImageController extends Controller
                 $image          = $request->file('file_path');
                 $unique_name    = uniqid().'-'.time().'.'.$image->getClientOriginalExtension();
                 $img = Image::make($image->getRealPath());
-                $img->resize(800,600);
+                $img->orientate(); // Fix image orientation
+                $img->resize(800, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
                 $img->save(public_path('/statics/img/').$unique_name);
                 if ($imageProduct->product_url || file_exists(public_path('statics/img/') . $imageProduct->product_url)) {
                     unlink(public_path('statics/img/') . $imageProduct->product_url);
