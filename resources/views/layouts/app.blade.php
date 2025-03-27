@@ -21,6 +21,7 @@
  
     <link rel="stylesheet" href="{{ asset('statics/dist/css/datatables.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('statics/dist/css/adminlte.css') }}" />
+    <link rel="stylesheet" href="{{ asset('statics/dist/css/select2.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('statics/dist/css/app.css') }}" />
 </head>
 <!--end::Head-->
@@ -43,8 +44,6 @@
                             <i class="bi bi-list"></i>
                         </a>
                     </li>
-                    <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Home</a></li>
-                    <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Contact</a></li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
@@ -176,21 +175,16 @@
         <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
             <div class="sidebar-brand">
                 <a href="../index.html" class="brand-link">
-                    <img src="{{ asset('statics/dist/assets/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-                        class="brand-image opacity-75 shadow" />
-                    <span class="brand-text fw-light">PatimOne</span>
+                    <img src="{{ asset('statics/img/brand.jpg') }}" alt="AdminLTE Logo"
+                        class=" " style="width: 100%;height:auto; margin:0px" />
+                    {{-- <span class="brand-text fw-light">PatimOne</span> --}}
                 </a>
             </div>
             @include('layouts.menu')
         </aside>
-        <!--end::Sidebar-->
-        <!--begin::App Main-->
         <main class="app-main">
-            <!--begin::App Content Header-->
             <div class="app-content-header">
-                <!--begin::Container-->
                 <div class="container-fluid">
-                    <!--begin::Row-->
                     <div class="row">
                         <div class="col-sm-6">
                             <h3 class="mb-0">{{ $data['subtitle'] ?? '' }}</h3>
@@ -202,53 +196,37 @@
                             </ol>
                         </div>
                     </div>
-                    <!--end::Row-->
                 </div>
-                <!--end::Container-->
             </div>
             <div class="app-content">
                    @yield('content')
             </div>
-            <!--end::App Content-->
         </main>
-        <!--end::App Main-->
-        <!--begin::Footer-->
         <footer class="app-footer">
-            <!--begin::To the end-->
             <div class="float-end d-none d-sm-inline">Anything you want</div>
-            <!--end::To the end-->
-            <!--begin::Copyright-->
             <strong>
                 Copyright &copy; 2014-2024&nbsp;
                 <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
             </strong>
             All rights reserved.
-            <!--end::Copyright-->
         </footer>
-        <!--end::Footer-->
     </div>
-    <!--end::App Wrapper-->
-    <!--begin::Script-->
-    <!--begin::Third Party Plugin(OverlayScrollbars)-->
+    
     <script src="{{ asset('statics/dist/js/jquery-3.7.1.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
         integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ=" crossorigin="anonymous"></script>
-    <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>
-    <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
     </script>
-    {{-- <script src="https://cdn.datatables.net/v/bs5/dt-2.2.2/af-2.7.0/datatables.min.js" integrity="sha384-/I7tvyRPfY8/TDdZlC9gXHLm6gVLRJnktZvLwcOBS7yINTTOS52pATXG826RgMbo" crossorigin="anonymous"></script> --}}
     
-    <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
     <script src="{{ asset('statics/dist/js/datatables.min.js') }}"></script>
+    <script src="{{ asset('statics/dist/js/select2.min.js') }}"></script>
     <script src="{{ asset('statics/dist/js/adminlte.js') }}"></script>
     <script src="{{ asset('statics/dist/js/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('statics/dist/js/app.js') }}"></script>
-    <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
         const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
         const Default = {

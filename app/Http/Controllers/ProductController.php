@@ -29,7 +29,7 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'category_id' => 'required|exists:categories,id',
             'package_id' => 'required|exists:packages,id',
-            'code' => 'required|string|max:30|unique:products,code',
+            // 'code' => 'required|string|max:30|unique:products,code',
             'name' => 'required|string|max:200',
             'quantity' => 'required|integer',
             'unit' => 'required|string|max:50',
@@ -47,7 +47,7 @@ class ProductController extends Controller
             $product = new Product();
             $product->category_id       = $validatedData['category_id'];
             $product->package_id        = $validatedData['package_id'];
-            $product->code              = $validatedData['code'];
+            $product->code              = $this->generateProductCode();
             $product->name              = $validatedData['name'];
             $product->quantity          = $validatedData['quantity'];
             $product->unit              = $validatedData['unit'];
@@ -82,7 +82,7 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'category_id' => 'required|exists:categories,id',
             'package_id' => 'required|exists:packages,id',
-            'code' => 'required|string|max:30|unique:products,code,'.$id,
+            // 'code' => 'required|string|max:30|unique:products,code,'.$id,
             'name' => 'required|string|max:200',
             'quantity' => 'required|integer',
             'unit' => 'required|string|max:50',
@@ -99,7 +99,7 @@ class ProductController extends Controller
         $product= Product::findOrFail($id);        
         $product->category_id = $validatedData['category_id'];
         $product->package_id = $validatedData['package_id'];
-        $product->code = $validatedData['code'];
+        // $product->code = $validatedData['code'];
         $product->name = $validatedData['name'];
         $product->quantity = $validatedData['quantity'];
         $product->unit = $validatedData['unit'];
@@ -131,4 +131,22 @@ class ProductController extends Controller
             throw $th;
         }
     }
+    /**
+     * Generate a unique product code.
+     *
+     * @return string
+     */
+    private function generateProductCode()
+    {
+        $lastProduct = Product::orderBy('id', 'desc')->first();
+        if (!$lastProduct) {
+            return 'P0001';
+        }
+        $lastCode = $lastProduct->code;
+        $number = (int) substr($lastCode, 1);
+        $newNumber = $number + 1;
+        return 'P' . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+    }
+
+
 }

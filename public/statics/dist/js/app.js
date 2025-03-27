@@ -108,4 +108,67 @@ $(document).ready(function() {
             prevImage.hide();
         }
     })
+
+    $('.form-select').select2({
+        width: '100%',
+        placeholder: "Select a Product",
+        allowClear: true
+    });
+    let table_distribution_url =$('#table-distribution').attr('data-url');
+    $('#table-distribution').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: table_distribution_url,
+            type: 'GET'
+        },
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
+            {data: 'product.name', name: 'product.name'},
+            {data: 'product.category.category_name', name: 'product.category.category_name'},
+            {data: 'product_number', name: 'product_number'},
+            {data: 'distribute_date', name: 'distribute_date'},
+            {data: 'location', name: 'location'},
+            {data: 'condition', name: 'condition'},
+            {data: 'received_by', name: 'received_by'},
+            {data: 'remark', name: 'remark'},
+            {data: 'option', name: 'option'}
+        ],
+        order: [[0, 'asc']],
+    });
+
+    
+    $(document).on('click','#table-distribution .btn-destroy',function(e){
+        let btn = $(this);       
+        let url = btn.attr('data-url');
+        console.log(url);        
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url:url,
+                    type:'DELETE',
+                    dataType:'json',
+                    success:function(result){
+                        Swal.fire({
+                            title: result.success ? "Deleted!" : "failed!",
+                            text: result.message,
+                            icon: result.success ? "success" : "error"
+                          }).then(function(){
+                            window.location.reload();
+                          });
+                    }
+                })
+            
+            }
+          });        
+    })
+    
 });

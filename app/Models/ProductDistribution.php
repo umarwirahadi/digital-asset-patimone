@@ -22,7 +22,8 @@ class ProductDistribution extends Model
         'status',
         'handed_over_by',
         'received_by',
-        'file',
+        'files',
+        'remark',
         'created_by',
         'updated_by'
     ];

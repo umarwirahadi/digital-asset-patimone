@@ -28,6 +28,7 @@ class CreateProductDistributionsTable extends Migration
             $table->string('handed_over_by',100)->nullable(); //handed over by admin 
             $table->string('received_by',100)->nullable(); //received by admin 
             $table->string('files')->nullable(); //file attachment
+            $table->text('remark')->nullable(); //remark 
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();

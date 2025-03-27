@@ -42,7 +42,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row mb-3">
+                                {{-- <div class="row mb-3">
                                     <label for="code" class="col-sm-3 col-form-label">Product code</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control @error('code') is-invalid @enderror"
@@ -53,7 +53,7 @@
                                         </div>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row mb-3">
                                     <label for="name" class="col-sm-3 col-form-label">Product Name</label>
                                     <div class="col-sm-9">
