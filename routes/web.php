@@ -87,7 +87,12 @@ Route::get('position/edit/{id}',[App\Http\Controllers\PositionController::class,
 Route::put('position/update/{id}',[App\Http\Controllers\PositionController::class,'update'])->name('position.update');
 Route::delete('position/destroy/{id}',[App\Http\Controllers\PositionController::class,'destroy'])->name('position.destroy');
 
-
+Route::get('requisition/',[App\Http\Controllers\RequisitionController::class,'index'])->name('requisitions.index');
+Route::get('requisition/create',[App\Http\Controllers\RequisitionController::class,'create'])->name('requisitions.create');
+Route::post('requisition/store',[App\Http\Controllers\RequisitionController::class,'store'])->name('requisitions.store');
+Route::get('requisition/edit/{id}',[App\Http\Controllers\RequisitionController::class,'edit'])->name('requisitions.edit');
+Route::put('requisition/update/{id}',[App\Http\Controllers\RequisitionController::class,'update'])->name('requisitions.update');
+Route::delete('requisition/destroy/{id}',[App\Http\Controllers\RequisitionController::class,'destroy'])->name('requisitions.destroy');
 
 
 

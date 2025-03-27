@@ -17,21 +17,21 @@
                         <i class="nav-arrow bi bi-chevron-right"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">                   
+                <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('employee.index') }}" class="nav-link">   
+                        <a href="{{ route('employee.index') }}" class="nav-link">
                             <i class="nav-icon bi bi-arrow-right"></i>
                             <p>Employees</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('category.index') }}" class="nav-link">   
+                        <a href="{{ route('category.index') }}" class="nav-link">
                             <i class="nav-icon bi bi-arrow-right"></i>
                             <p>Category</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('position.index') }}" class="nav-link">   
+                        <a href="{{ route('position.index') }}" class="nav-link">
                             <i class="nav-icon bi bi-arrow-right"></i>
                             <p>Position</p>
                         </a>
@@ -60,7 +60,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="../layout/unfixed-sidebar.html" class="nav-link">
+                        <a href="{{ route('requisitions.index') }}" class="nav-link">
                             <i class="nav-icon bi bi-circle"></i>
                             <p>Request</p>
                         </a>

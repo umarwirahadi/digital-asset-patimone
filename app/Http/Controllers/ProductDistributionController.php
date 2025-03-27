@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDistributionRequest;
+use App\Models\Category;
 use App\Models\Employee;
+use App\Models\Package;
 use App\Models\Product;
 use App\Models\ProductDistribution;
 use Illuminate\Http\Request;
@@ -17,7 +19,7 @@ class ProductDistributionController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Request $request)    
+    public function index(Request $request)
     {
         if($request->ajax()){
             $cacheKey       = 'product_distributions_' . md5(json_encode($request->all()));
@@ -46,7 +48,7 @@ class ProductDistributionController extends Controller
                                 ->orWhere('distribute_date', 'like', "%{$serachValue}%");
                         });
                     }
-                    return $query->get();                    
+                    return $query->get();
             });
 
             return DataTables::of($distributions)
@@ -73,7 +75,7 @@ class ProductDistributionController extends Controller
         return view('assets.distribution.create',compact('data','products','employees'));
     }
 
-    public function store(StoreDistributionRequest $request){        
+    public function store(StoreDistributionRequest $request){
             $distribution = new ProductDistribution();
             $distribution->product_id = $request->product_id;
             $distribution->product_number = $request->product_number;
@@ -98,17 +100,16 @@ class ProductDistributionController extends Controller
                     $file->move(public_path('/statics/img/'),$unique_name);
                     $fileNames[] = $unique_name;
                 }
-                $distribution->files = json_encode($fileNames);         
+                $distribution->files = json_encode($fileNames);
             }
             $distribution->save();
             session()->put('code',$request->product_code);
-            return redirect()->route('asset.distribution.index',['code'=>session('code')])->with('success', 'Distribution created successfully.');           
+            return redirect()->route('asset.distribution.index',['code'=>session('code')])->with('success', 'Distribution created successfully.');
     }
 
 
     public function edit($id){
         $data = ['title'=>'Products','subtitle'=>'Edit Product','packages'=>Package::IsShow()->get(),'categories'=>Category::all(),'product'=>Product::findOrFail($id)];
-        // return $data;
         return view('assets.products.edit',compact('data'));
     }
     public function update(Request $request,$id){
@@ -128,8 +129,8 @@ class ProductDistributionController extends Controller
             'warranty_start_date' => 'nullable|date',
             'warranty_end_date' => 'nullable|date',
             'status' => 'required|in:1,0',
-        ]);        
-        $product= Product::findOrFail($id);        
+        ]);
+        $product= Product::findOrFail($id);
         $product->category_id = $validatedData['category_id'];
         $product->package_id = $validatedData['package_id'];
         $product->code = $validatedData['code'];
@@ -148,11 +149,11 @@ class ProductDistributionController extends Controller
         $product->warranty_end_date = $validatedData['warranty_end_date'];
         $product->status = $validatedData['status'];
         $product->update();
-        return redirect()->route('product.index')->with('success', 'Product has been updated!.');   
+        return redirect()->route('product.index')->with('success', 'Product has been updated!.');
     }
     public function destroy($id){
         try {
-            $product = Product::findOrFail($id);            
+            $product = Product::findOrFail($id);
             $result = $product->delete();
             if($result) {
                 $response = ['success'=>true,'message'=>'Product has been deleted..!'];
@@ -167,8 +168,8 @@ class ProductDistributionController extends Controller
 
     public function fetch(Request $request)
     {
-        
-       
+
+
         $product_code = request()->query('code');
         $product = Product::with('distributions')->where('code', $product_code)->first();
         return response()->json($product);
