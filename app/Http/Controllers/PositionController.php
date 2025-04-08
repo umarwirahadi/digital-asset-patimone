@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Package;
 use App\Models\Position;
+use DB;
 use Illuminate\Http\Request;
 
 class PositionController extends Controller
@@ -20,7 +22,9 @@ class PositionController extends Controller
 
     public function create(){
         $data = ['title'=>'Position','subtitle'=>'Create New Position'];
-        return view('database.position.create',compact('data'));
+        $form = ['url'=>route('position.store'),'method'=>'POST','back'=>route('position.index')];
+        $categories = DB::table('items')->select('item_code','item_name')->where('item_category','Type of Employer')->distinct()->get();
+        return view('database.position.create',compact('data','form','categories'));
     }
     public function store(Request $request){
 
@@ -37,7 +41,7 @@ class PositionController extends Controller
         return redirect()->route('position.index')->with('success', 'New Position created successfully.');                         
     }
     public function edit($id){
-        $data = ['title'=>'Packages','subtitle'=>'Edit Package','position'=>Position::findOrFail($id)];
+        $data = ['title'=>'Packages','subtitle'=>'Edit Position','position'=>Position::findOrFail($id)];
         return view('database.position.edit',compact('data'));
     }
     public function update(Request $request,$id){

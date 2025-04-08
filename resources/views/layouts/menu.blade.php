@@ -48,6 +48,12 @@
                             <p>Package</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                    <a href="{{ route('items.index') }}" class="nav-link">
+                            <i class="nav-icon bi bi-arrow-right"></i>
+                            <p>Items</p>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequitionRequest;
 use App\Models\Requisition;
+use DB;
 use Illuminate\Http\Request;
 
 class RequisitionController extends Controller
@@ -25,7 +26,8 @@ class RequisitionController extends Controller
     {
         $data = ['title'=>'Consumable','subtitle'=>'Create New Requisition'];
         $form = ['url'=>route('requisitions.store'),'method'=>'POST','files'=>true,'back'=>route('requisitions.index')];
-        return view('consumable.requisitions.create',compact('data','form'));
+        $req_types = DB::table('items')->where('item_category','req. type')->get();
+        return view('consumable.requisitions.create',compact('data','form','req_types'));
     }
 
     public function store(StoreRequitionRequest $request)
@@ -52,8 +54,10 @@ class RequisitionController extends Controller
 
     public function edit($id)
     {
-        $requisition = Requisition::findOrFail($id);
-        return view('requisitions.edit', compact('requisition'));
+        $requisition    = Requisition::findOrFail($id);
+        $data           = ['title'=>'Consumable','subtitle'=>'Edit Requisiton'];
+        $form           = ['url'=>route('requisitions.update',$requisition->id),'method'=>'PUT','back'=>route('requisitions.index'),'files'=>true];
+        return view('consumable.requisitions.edit', compact('requisition','data','form'));
     }
 
     public function update(Request $request, $id)
@@ -86,9 +90,18 @@ class RequisitionController extends Controller
 
     public function destroy($id)
     {
+    if (request()->ajax()) {
         $requisition = Requisition::findOrFail($id);
-        $requisition->delete();
-        return redirect()->route('requisitions.index')->with('success', 'Requisition deleted successfully.');
+        $result = $requisition->delete();
+        if($result) {
+            $response = ['success'=>true,'message'=>'Requisition has been deleted successfully.'];
+        } else {
+            $response = ['success'=>false,'message'=>'Requisition failed to delete'];
+        }
+        return response()->json($response);        
+        
+    }
+        return redirect()->route('requisitions.index')->with('error', 'Unable to delete requisition.');
     }
 
 

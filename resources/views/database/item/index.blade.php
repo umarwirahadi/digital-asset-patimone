@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header p-1">
-            <h3 class="card-title"><a href="{{ route('category.create') }}" class="btn btn-link"><i class="bi bi-file-earmark-plus"></i> New Category</a></h3>
+            <h3 class="card-title"><a href="{{ route('items.create') }}" class="btn btn-link"><i class="bi bi-file-earmark-plus"></i> New Item</a></h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse" title="Collapse">
                         <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
@@ -24,26 +24,31 @@
                 @endif
 
                 <div class="table-responsive">
-                    <table class="table table-sm table-borderless table-hover data-table">
+                        <table class="table table-striped table-sm table-hover data-table" style="width:100%">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Category Name</th>
-                                <th>Description</th>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Category</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data['categories'] as $key=>$category)
+                            @foreach ($items as $item)
                                 <tr>
-                                    <td>{{ ++$key }}</td>
-                                    <td>{{ $category->category_name }}</td>
-                                    <td>{{ $category->description }}</td>
-                                    <td>{!! $category->status == '1' ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Not Active</span>' !!}</td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->item_code }}</td>
+                                    <td>{{ $item->item_name }}</td>
+                                    <td>{{ $item->item_category }}</td>
+                                    <td> 
+                                        <span class="{{ $item->status_class }}">{{ $item->status }}</span>                                        
+                                    </td>
+                                        
                                     <td>
-                                        <a href="{{ route('category.edit',$category->id) }}" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>
-                                        <button type="button" class="btn btn-sm btn-danger btn-destroy" data-url="{{ route('category.destroy',$category->id) }}"><i class="bi bi-trash3"></i> Delete</button>
+                                        <a href="{{ route('items.edit',$item->id) }}" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>
+                                        <button type="button" class="btn btn-sm btn-danger btn-destroy" data-url="{{ route('items.destroy',$item->id) }}"><i class="bi bi-trash3"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach

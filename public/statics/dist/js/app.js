@@ -12,6 +12,42 @@ $(document).ready(function() {
         $('.form-control').removeClass('is-invalid');
     },3000);
 
+    $(document).on('click','.data-table .set-status-user',function(e){
+        let btn = $(this);       
+        let url = btn.attr('data-url');
+        let status = btn.attr('data-status');
+        Swal.fire({
+            title: "Are you sure?",
+            text: `Do you want to ${status} this user?` ,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, change status!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url:url,
+                    type:'POST',
+                    data:{
+                        is_active:status == 'Active' ? 1 : 0
+                    },
+                    dataType:'json',
+                    success:function(result){
+                        Swal.fire({
+                            title: result.success ? "Status Changed!" : "Failed!",
+                            text: result.message,
+                            icon: result.success ? "success" : "error"
+                          }).then(function(){
+                            window.location.reload();
+                          });
+                    }
+                })
+            
+            }
+          });        
+    })
+
     $(document).on('change','#profile_url',function(){
         const file = this.files[0];
         const prevImage = $('#imageUserPreview');
@@ -170,5 +206,23 @@ $(document).ready(function() {
             }
           });        
     })
+
+$(document).on('click','#addModalForm',function(e){
+    e.preventDefault();
+    let url = $(this).attr('data-url');
+    console.log(url);
+    $.ajax({
+        url:url,
+        type:'GET',
+        dataType:'json',
+        success:function(result){
+            $('#FormModal').html(result);
+            $('#FormModal').modal({backdrop: 'static', keyboard: false});
+            $('#FormModal').modal('show');
+        },
+        
+    })
+})
+    
     
 });

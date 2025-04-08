@@ -28,6 +28,8 @@ Route::get('user/create',[App\Http\Controllers\UserController::class,'create'])-
 Route::post('user/store',[App\Http\Controllers\UserController::class,'store'])->name('user.store');
 Route::get('user/{id}/edit',[App\Http\Controllers\UserController::class,'edit'])->name('user.edit');
 Route::put('user/update/{id}',[App\Http\Controllers\UserController::class,'update'])->name('user.update');
+Route::delete('user/{id}',[App\Http\Controllers\UserController::class,'destroy'])->name('user.destroy');
+Route::post('user/{id}/is-active',[App\Http\Controllers\UserController::class,'changeStatus'])->name('user.is-active');
 
 
 
@@ -51,6 +53,14 @@ Route::get('package/edit/{id}',[App\Http\Controllers\PackageController::class,'e
 Route::put('package/update/{id}',[App\Http\Controllers\PackageController::class,'update'])->name('package.update');
 Route::delete('package/{id}',[App\Http\Controllers\PackageController::class,'destroy'])->name('package.destroy');
 Route::get('package/{id}/is-show/',[App\Http\Controllers\PackageController::class,'change_is_show'])->name('package.is-show');
+
+Route::get('items/',[App\Http\Controllers\ItemController::class,'index'])->name('items.index');
+Route::get('items/create',[App\Http\Controllers\ItemController::class,'create'])->name('items.create');
+Route::post('items/store',[App\Http\Controllers\ItemController::class,'store'])->name('items.store');
+Route::get('items/edit/{id}',[App\Http\Controllers\ItemController::class,'edit'])->name('items.edit');
+Route::put('items/update/{id}',[App\Http\Controllers\ItemController::class,'update'])->name('items.update');
+Route::delete('items/destroy/{id}',[App\Http\Controllers\ItemController::class,'destroy'])->name('items.destroy');
+Route::get('items/{id}/is-active',[App\Http\Controllers\ItemController::class,'changeStatus'])->name('items.is-active');
 
 Route::get('product',[App\Http\Controllers\ProductController::class,'index'])->name('product.index');
 Route::get('product/create',[App\Http\Controllers\ProductController::class,'create'])->name('product.create');
@@ -93,6 +103,13 @@ Route::post('requisition/store',[App\Http\Controllers\RequisitionController::cla
 Route::get('requisition/edit/{id}',[App\Http\Controllers\RequisitionController::class,'edit'])->name('requisitions.edit');
 Route::put('requisition/update/{id}',[App\Http\Controllers\RequisitionController::class,'update'])->name('requisitions.update');
 Route::delete('requisition/destroy/{id}',[App\Http\Controllers\RequisitionController::class,'destroy'])->name('requisitions.destroy');
+
+    Route::get('requisition/detail',[App\Http\Controllers\RequisitionDetailController::class,'index'])->name('requisition_detail.index');
+    Route::get('requisition/detail/create',[App\Http\Controllers\RequisitionDetailController::class,'create'])->name('detailreq.create');
+    Route::post('requisition/detail/store',[App\Http\Controllers\RequisitionDetailController::class,'store'])->name('requisition_detail.store');
+    Route::get('requisition/detail/edit/{id}',[App\Http\Controllers\RequisitionDetailController::class,'edit'])->name('requisition_detail.edit');
+    Route::put('requisition/detail/update/{id}',[App\Http\Controllers\RequisitionDetailController::class,'update'])->name('requisition_detail.update');
+    Route::delete('requisition/detail/destroy/{id}',[App\Http\Controllers\RequisitionDetailController::class,'destroy'])->name('requisition_detail.destroy');
 
 
 

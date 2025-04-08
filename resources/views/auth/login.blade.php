@@ -18,6 +18,12 @@
 </head>
 
 <body class="login-page bg-body-secondary">
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="login-box">
         <div class="card card-outline card-primary">
             <div class="card-header">
@@ -26,6 +32,9 @@
                     <h1 class="mb-0"><b>Patim<strong class="text text-danger">O</strong>ne</b> Consul</h1>
                 </a>
             </div>
+
+           
+
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Please login</p>             
                 <form action="{{ route('login') }}" method="post">
@@ -83,6 +92,15 @@
     <script src="{{ asset('statics/dist/js/adminlte.js') }}"></script>
     <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
+
+    setTimeout(function(){
+        let alert = document.querySelector('.alert');
+        if (alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            alert.remove();
+        }
+    },3000);
         const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
         const Default = {
             scrollbarTheme: 'os-theme-light',

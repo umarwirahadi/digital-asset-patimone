@@ -29,11 +29,15 @@
                                     <label for="requisition_type" class="col-sm-3 col-form-label">Request Type</label>
                                     <div class="col-sm-9">
                                         <select name="requisition_type" id="requisition_type" class="form-select @error('requisition_type') is-invalid @enderror">
-                                            <option value="1">Requisition / Supply of Expendable Items for Engineer's Site Office</option>
-                                            <option value="2">Requisition For Maintenance Site Office</option>
-                                            <option value="3">Requisition For Maintenance Air Condition</option>
-                                            <option value="4">Requisition For PEST Control</option>
+                                            @foreach ($req_types as $item)
+                                                <option value="{{ $item->item_code }}">{{ $item->item_name }}</option>                                                
+                                            @endforeach
                                         </select>
+                                        @error('requisition_type')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -107,9 +111,9 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="category_name" class="col-sm-3 col-form-label">Description</label>
+                                    <label for="requisition_description" class="col-sm-3 col-form-label">Description</label>
                                     <div class="col-sm-9">
-                                        <textarea name="description" id="description" cols="30" rows="4"
+                                        <textarea name="requisition_description" id="requisition_description" cols="30" rows="4"
                                             class="form-control"></textarea>
                                     </div>
                                 </div>

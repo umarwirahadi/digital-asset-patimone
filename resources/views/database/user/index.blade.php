@@ -24,14 +24,14 @@
                 @endif
 
                 <div class="table-responsive">
-                    <table class="table table-sm table-bordered table-hover data-table">
+                    <table class="table table-striped table-sm table-hover data-table" style="width:100%">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>Is Active</th>
+                                <th>Is Active ?</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -42,7 +42,18 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phone }}</td>
-                                    <td>{{ $user->is_active }}</td>
+                                    <td>
+                                        @if($user->is_active == 1)
+                                            <a href="javascript:void(0)" class="text-success set-status-user active-user" data-status="Deactive" data-url="{{route('user.is-active',$user->id)}}" data-bs-toggle="tooltip" data-bs-placement="button" title="Click to change status">
+                                                <span class="badge bg-success">Active</span>
+                                            </a>
+                                        @else
+                                            <a href="javascript:void(0)" class="text-danger set-status-user inactive-user" data-status="Active" data-url="{{route('user.is-active',$user->id)}}" data-bs-toggle="tooltip" data-bs-placement="button" title="Click to change status">
+                                                <span class="badge bg-danger">Inactive</span>
+                                            </a>    
+                                        @endif
+
+                                    </td>
                                     <td>
                                         <a href="{{ route('user.edit',$user->id) }}" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>
                                         <button type="button" class="btn btn-sm btn-danger"><i class="bi bi-trash3"></i> Delete</button>

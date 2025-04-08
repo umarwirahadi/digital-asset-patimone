@@ -28,6 +28,7 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+
     /**
      * Create a new controller instance.
      *
@@ -36,5 +37,15 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function authenticated($request, $user)
+    {
+        if ($user->is_active != '1') {
+            auth()->logout();
+            return redirect('/login')->with('error', 'Your account is not active, Please contact Administrator.');
+        }
+
+        return redirect()->intended($this->redirectTo);
     }
 }

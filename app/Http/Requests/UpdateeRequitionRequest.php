@@ -13,7 +13,7 @@ class UpdateeRequitionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class UpdateeRequitionRequest extends FormRequest
     public function rules()
     {
         return [
-            'requisition_no' => 'required|string|max:50|unique:requisitions,requisition_no,'.$this->route('id'),
+            'requisition_no' => 'required|string|max:50',
             'requisition_type' => 'required|string',
             'requisition_description' => 'nullable|string|max:200',
             'requisition_file' => 'nullable|mimes:png,jpg,jpeg,pdf|max:10240',
@@ -33,36 +33,32 @@ class UpdateeRequitionRequest extends FormRequest
             'date_supplied_by_contractor' => 'nullable|date',
             'remark_by_contractor' => 'nullable|string|max:300',
             'date_received_by_engineer' => 'nullable|date',
-            'remark_by_engineer' => 'nullable|string|max:300'
+            'remark_by_engineer' => 'nullable|string|max:300',
+            'status' => 'required|string|max:1',
         ];
     }
 
     public function messages()
     {
         return [
-            'requisition_no.required' => 'Requisition number is required',
-            'requisition_no.string' => 'Requisition number must be a string',
-            'requisition_no.max' => 'Requisition number must not be more than 50 characters',
-            'requisition_no.unique' => 'Requisition number has already been taken',
-            'requisition_type.required' => 'Requisition type is required',
-            'requisition_type.string' => 'Requisition type must be a string',
-            'requisition_description.string' => 'Requisition description must be a string',
-            'requisition_description.max' => 'Requisition description must not be more than 200 characters',
-            'requisition_file.mimes' => 'Requisition file must be a file of type: png, jpg, jpeg, pdf',
-            'requisition_file.max' => 'Requisition file must not be more than 10MB',
-            'requisition_date.required' => 'Requisition date is required',
-            'requisition_date.date' => 'Requisition date must be a date',
-            'requisition_remark.string' => 'Requisition remark must be a string',
-            'requisition_remark.max' => 'Requisition remark must not be more than 200 characters',
-            'date_supplied_by_contractor.date' => 'Date supplied by contractor must be a date',
-            'remark_by_contractor.string' => 'Remark by contractor must be a string',
-            'remark_by_contractor.max' => 'Remark by contractor must not be more than 300 characters',
-            'date_received_by_engineer.date' => 'Date received by engineer must be a date',
-            'remark_by_engineer.string' => 'Remark by engineer must be a string',
-            'remark_by_engineer.max' => 'Remark by engineer must not be more than 300 characters',
+            'requisition_no.required' => 'Requisition No is required',
+            'requisition_no.string' => 'Requisition No must be a string.',
+            'requisition_no.max' => 'Requisition No must not exceed 50 characters.',
+            'requisition_description.string' => 'Requisition Description must be a string.',
+            'requisition_description.max' => 'Requisition Description must not exceed 200 characters.',
+            'requisition_type.required' => 'type of requisition  is required',
+            'requisition_type.string' => 'Requisition Type must be a string.',
+            'requisition_file.mimes' => 'File must be a file of type: png, jpg, jpeg, pdf.',
+            'requisition_file.max' => 'File size must not exceed 10MB.',
+            'requisition_date.required' => 'Requisition Date is required',
             'status.required' => 'Status is required',
-            'status.string' => 'Status must be a string',
-            'status.max' => 'Status must not be more than 1 character'
+            'requisition_remark.max' => 'Requisition Remark must not exceed 200 characters.',
+            'remark_by_contractor.max' => 'Remark by Contractor must not exceed 300 characters.',
+            'remark_by_engineer.max' => 'Remark by Engineer must not exceed 300 characters.',
+            'requisition_time.required' => 'Requisition Time is required',
+            'requisition_location.string' => 'Requisition Location must be a string.',
+            'requisition_location.max' => 'Requisition Location must not exceed 255 characters.',
+            'requisition_priority.required' => 'Requisition Priority is required',
         ];
     }
 }

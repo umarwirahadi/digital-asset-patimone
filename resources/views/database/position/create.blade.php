@@ -52,15 +52,11 @@
                                     <label for="category" class="col-sm-3 col-form-label">Category</label>
                                     <div class="col-sm-9">
                                         <select name="category" id="category" class="form-select @error('category') is-invalid @enderror">
-                                            <option value="Employer">Employer</option>
-                                            <option value="Pro A">Pro A</option>
-                                            <option value="Pro B">Pro B</option>
-                                            <option value="SS">SS</option>
-                                            <option value="Inspector">Inspector</option>
-                                            <option value="Contractor">Contractor</option>
-                                            <option value="Sub-Contractor">Sub-Contractor</option>
+                                            @foreach ($categories as $item)
+                                                <option value="{{ $item->item_code }}">{{ $item->item_name }}</option>                                                  
+                                            @endforeach
                                         </select>                                      
-                                        @error('position_name')
+                                        @error('category')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

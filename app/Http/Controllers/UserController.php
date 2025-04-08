@@ -42,7 +42,7 @@ class UserController extends Controller
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'phone' => $validatedData['phone'],
-            'profile_path' => $unique_name,
+            'profile_path' => $unique_name ?? null,
             'is_active' => '1',
             'password' => bcrypt($validatedData['password']),
         ]);
@@ -54,7 +54,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('users.edit', compact('user'));
+        return view('database.user.edit', compact('user'));
     }
     public function update(Request $request, $id)
     {
@@ -80,6 +80,36 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return view('user.show', compact('user'));
     }
+
+    public function changeStatus(Request $request, $id)
+    {
+        try {
+            if($request->ajax()) {
+                $validatedData = $request->validate([
+                    'is_active' => 'required|boolean',
+                ]);
+            }
+            
+            $user = User::findOrFail($id);
+            $user->is_active = $validatedData['is_active'];
+            $result = $user->save();             
+            if($result) {
+                $response = ['success'=>true,'message'=>'User status updated successfully.'];
+            } else {
+                $response = ['success'=>false,'message'=>'User status update failed'];
+            }
+            return response()->json($response);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+
+      
+
+        return redirect()->route('user.index')
+                         ->with('success', 'User status updated successfully.');
+    }
+
 
     public function destroy($id)
     {

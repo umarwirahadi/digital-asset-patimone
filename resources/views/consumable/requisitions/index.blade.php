@@ -38,17 +38,25 @@
                             </tr>
                         </thead>
                         <tbody>
-
-
                             @foreach ($requisitions as $key=>$requisition)
                                 <tr>
                                     <td>{{ ++$key }}</td>
-                                    <td><a href="#">{{ $requisition->requisition_no }}</a></td>
+                                    <td><a href="{{route('requisition_detail.index', ['_request_id'=>$requisition->id])}}">{{ $requisition->requisition_no }}</a></td>
                                     <td>{{ $requisition->requisition_month }}</td>
                                     <td>{{ $requisition->requisition_year }}</td>
                                     <td>{{ $requisition->requisition_type }}</td>
                                     <td>{{ $requisition->requisition_description }}</td>
-                                    <td>{{ $requisition->status }}</td>
+                                    <td>
+                                        @if($requisition->status == 1)
+                                            <span class="badge bg-success">Approved</span>
+                                        @elseif($requisition->status == 2)
+                                            <span class="badge bg-warning">Pending</span>
+                                        @elseif($requisition->status == 3)
+                                            <span class="badge bg-danger">Rejected</span>
+                                        @else
+                                            <span class="badge bg-secondary">Unknown</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         <a href="{{ route('requisitions.edit',$requisition->id) }}" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>
                                         <button type="button" class="btn btn-sm btn-danger btn-destroy" data-url="{{ route('requisitions.destroy',$requisition->id) }}"><i class="bi bi-trash3"></i> Delete</button>
