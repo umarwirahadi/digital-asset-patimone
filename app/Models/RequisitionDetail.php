@@ -36,6 +36,19 @@ class RequisitionDetail extends Model
         'updated_by',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->created_by = auth()->id();
+            $model->updated_by = auth()->id();
+        });
+        static::updating(function ($model) {
+            $model->updated_by = auth()->id();
+        });
+    }
+    
+
     public function requisition()
     {
         return $this->belongsTo(Requisition::class, 'requisition_id', 'id');

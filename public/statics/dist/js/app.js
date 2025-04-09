@@ -223,6 +223,90 @@ $(document).on('click','#addModalForm',function(e){
         
     })
 })
+$(document).on('submit','#formItemRequest',function(e){
+    e.preventDefault();
+    let form = $(this);
+    let url = form.attr('action');
+    let method = form.attr('method');
+    let formData = new FormData(this);
+    $.ajax({
+        url:url,
+        type:method,
+        data:formData,
+        processData:false,
+        contentType:false,
+        dataType:'json',
+        success:function(result){
+            if(result.success){
+                Swal.fire({
+                    title: result.success ? "Success!" : "Failed!",
+                    text: result.message,
+                    icon: result.success ? "success" : "error"
+                  }).then(function(){
+                    window.location.reload();
+                  });
+            }else{
+                $.each(result.errors, function(key, value) {
+                    $(`#${key}`).addClass('is-invalid');
+                    $(`#${key}-feedback`).text(value[0]);
+                });
+            }
+        }
+    });
+});
+$(document).on('click','#formItemRequest .remove-image',function(e){
+    e.preventDefault();
+    let img     = $(this);
+    let image   = $(this).data('image');
+    let url     = $(this).data('url');
+    $.ajax({
+        url:url,
+        type:'DELETE',
+        dataType:'json',        
+        success:function(result){
+            if(result.success){
+                Swal.fire({
+                    title: result.success ? "Success!" : "Failed!",
+                    text: result.message,
+                    icon: result.success ? "success" : "error"
+                  }).then(function(){
+                    img.siblings('img[src$="' + image + '"]').remove();
+                    img.remove();
+                  });
+            }else{
+                $.each(result.errors, function(key, value) {
+                    $(`#${key}`).addClass('is-invalid');
+                    $(`#${key}-feedback`).text(value[0]);
+                });
+            }
+        }
+    });
     
+
+});
+
+$(document).on('click','.data-table .edit-row',function(e){
+    e.preventDefault();
+    let btn = $(this);
+    let url = btn.attr('data-url');
     
+    $.ajax({
+        url:url,
+        type:'GET',
+        dataType:'json',
+        success:function(result){
+            $('#FormModal').html(result);
+            $('#FormModal').modal({backdrop: 'static', keyboard: false});
+            $('#FormModal').modal('show');
+        },
+        error:function(xhr){
+            console.log(xhr.responseText);
+            Swal.fire({
+                title: "Failed!",
+                text: xhr.responseText,
+                icon: "error"
+              });
+        }
+    });
+});
 });

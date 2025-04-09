@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header p-1">
-            <h3 class="card-title"><a href="route('requisitions.index')" class="btn btn-link text text-danger"><i class="bi bi-arrow-counterclockwise"></i> Back</a></h3>
+            <h3 class="card-title"><a href="{{route('requisitions.index')}}" class="btn btn-link text text-danger"><i class="bi bi-arrow-counterclockwise"></i> Back</a></h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse" title="Collapse">
                         <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
@@ -25,7 +25,7 @@
                                         <div class="col-sm-9">
                                             <input type="text"
                                                 class="form-control @error('requisition_no') is-invalid @enderror"
-                                                id="code" name="code" value="{{$requisiton->requisition_no ?? ''}}">
+                                                id="code" name="code" value="{{$requisition->requisition_no}}">
                                             
                                         </div>
                                     </div>
@@ -43,7 +43,7 @@
                                         <div class="col-sm-9">
                                             <select name="requisition_type" id="requisition_type" class="form-select @error('requisition_type') is-invalid @enderror">
                                                 @foreach ($request_type as $item)                                                 
-                                                @if($item->item_code == $requisiton->requisition_type) 
+                                                @if($item->item_code == $requisition->requisition_type) 
                                                     <option value="{{ $item->item_code }}" selected>{{ $item->item_name }}</option>
                                                 @endif
                                                 
@@ -56,9 +56,12 @@
                                     
                                     <div class="row mb-3">
                                         <div class="col-8 offset-3">
-                                            <button type="button" class="btn btn-primary" id="addModalForm" data-url="{{route('detailreq.create')}}"><i class="bi bi-plus"></i>
+                                            <button type="button" class="btn btn-outline-success " id="addModalForm" data-url="{{route('detailreq.create',['_request_id'=>$requisition->id])}}"><i class="bi bi-plus"></i>
                                                 Add Item</button>
+                                            <button type="button" class="btn btn-outline-success " id="deleteSelected"><i class="bi bi-printer"></i> Print</button>
+                                            <button type="button" class="btn btn-outline-success " id="deleteSelected"><i class="bi bi-file-earmark-excel"></i> Export to excel</button>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +77,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
-
                 <div class="table-responsive">
                     <table class="table table-striped table-sm table-hover data-table" style="width:100%">
                         <thead>
@@ -91,6 +93,22 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($requisition->details as $key=>$item)
+                                <tr>
+                                    <td>{{ ++$key }}</td>
+                                    <td>{{ $item->description_item }}</td>
+                                    <td>{{ $item->preferred_brand }}</td>
+                                    <td>{{ $item->unit }}</td>
+                                    <td>{{ $item->quantity }}</td>
+                                    <td>{{ $item->request_date }}</td>
+                                    <td>{{ $item->supplied_date }}</td>
+                                    <td>{{ $item->received_date }}</td>                                    
+                                    <td> 
+                                        <button type="button" class="btn btn-sm btn-primary edit-row" id="editModalForm" data-url="{{route('detailreq.edit',$item->id)}}"><i class="bi bi-pencil-square"></i> Edit</button> 
+                                        <button type="button" class="btn btn-sm btn-danger btn-destroy" data-url="{{ route('detailreq.destroy',$item->id) }}"><i class="bi bi-trash3"></i> Delete</button>
+                                    </td>
+                                </tr>
+                            @endforeach
                              
                         </tbody>
                     </table>

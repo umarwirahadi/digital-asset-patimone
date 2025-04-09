@@ -49,6 +49,12 @@ class Requisition extends Model
         static::updating(function ($model) {
             $model->updated_by = auth()->id();
         });
+        static::deleting(function ($model) {
+            if ($model->details()->count() > 0) {
+                throw new \Exception('You cannot delete this requisition because it has related requisition details.');               
+            }            
+        });
+
     }
 
     public function details()
@@ -66,7 +72,7 @@ class Requisition extends Model
         return $this->belongsTo(User::class, 'updated_by', 'id');
     }
 
-    public function getRequisitionFileAttribute()
+   /*  public function getRequisitionFileAttribute()
     {
         if ($this->requisition_file == null) {
             return asset('statics/files/default.pdf');
@@ -75,6 +81,37 @@ class Requisition extends Model
             return asset('statics/files/default.pdf');
         }
         return asset('statics/files/' . $this->requisition_file);
+    } */
+
+    public function getStatusLabelAttribute()
+    {
+        $status_label = [
+            '0' => 'Draft',
+            '1' => 'Sent',
+            '2' => 'Approved',
+            '3' => 'Rejected',
+            '4' => 'Completed',
+            '5' => 'Cancelled',
+            '6' => 'In Progress',
+            '7' => 'Pending',
+        ];
+        return $status_label[$this->status] ?? 'Unknown';        
     }
+
+    public function getStatusClassAttribute()
+    {
+        $status_class = [
+            '0' => 'badge bg-secondary',
+            '1' => 'badge bg-primary',
+            '2' => 'badge bg-success',
+            '3' => 'badge bg-danger',
+            '4' => 'badge bg-info',
+            '5' => 'badge bg-warning',
+            '6' => 'badge bg-dark',
+            '7' => 'badge bg-light',
+        ];
+        return $status_class[$this->status] ?? 'badge bg-danger';
+    }
+   
 
 }

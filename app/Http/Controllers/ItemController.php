@@ -46,10 +46,11 @@ class ItemController extends Controller
     }
     public function edit($id)
     {
-        $data = ['title' => 'Item', 'subtitle' => 'Edit Item', 'item' => Item::findOrFail($id)];
+        $data = ['title' => 'Item', 'subtitle' => 'Edit Item'];
         $form = ['url' => route('items.update', $id), 'method' => 'PUT', 'back' => route('items.index')];
         $categories = DB::table('items')->select('item_category')->distinct()->get();
-        return view('database.item.edit', compact('data', 'form', 'categories'));
+        $item = Item::findOrFail($id);
+        return view('database.item.edit', compact('data', 'form', 'categories', 'item'));
     }
     public function update(Request $request, $id)
     {
@@ -57,6 +58,7 @@ class ItemController extends Controller
             'item_code' => 'required|string|max:20',
             'item_name' => 'required|string|max:50',
             'item_category' => 'required|string|max:50',
+            'status' => 'required|string|in:Active,Deactive',
         ]);
 
         $item = Item::findOrFail($id);
@@ -64,19 +66,19 @@ class ItemController extends Controller
             'item_code' => $validatedData['item_code'],
             'item_name' => $validatedData['item_name'],
             'item_category' => $validatedData['item_category'],
-            'status' => $request->input('status') == 'Active' ? 1 : 0
+            'status' => $validatedData['status']
         ]);
 
-        return redirect()->route('item.index')->with('success', 'Item updated successfully.');
+        return redirect()->route('items.index')->with('success', 'Item updated successfully.');
     }
     public function destroy($id)
     {
         try {
             $item = Item::findOrFail($id);
             $item->delete();
-            return redirect()->route('item.index')->with('success', 'Item deleted successfully.');
+            return redirect()->route('items.index')->with('success', 'Item deleted successfully.');
         } catch (\Exception $e) {
-            return redirect()->route('item.index')->with('error', 'Error deleting item: ' . $e->getMessage());
+            return redirect()->route('items.index')->with('error', 'Error deleting item: ' . $e->getMessage());
         }
     }
     public function changeStatus($id)
@@ -85,7 +87,7 @@ class ItemController extends Controller
         $item->is_active = !$item->is_active;
         $item->save();
 
-        return redirect()->route('item.index')->with('success', 'Item status updated successfully.');
+        return redirect()->route('items.index')->with('success', 'Item status updated successfully.');
     }
     public function show($id)
     {
@@ -98,6 +100,6 @@ class ItemController extends Controller
         $item->is_show = !$item->is_show;
         $item->save();
 
-        return redirect()->route('item.index')->with('success', 'Item visibility updated successfully.');
+        return redirect()->route('items.index')->with('success', 'Item visibility updated successfully.');
     }
 }

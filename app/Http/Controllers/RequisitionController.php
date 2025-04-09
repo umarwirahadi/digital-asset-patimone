@@ -47,7 +47,7 @@ class RequisitionController extends Controller
             $file->move('uploads/requisitions/', $filename);
             $requisition->requisition_file = $filename;
         }
-        $requisition->status = '1';
+        $requisition->status = '0';
         $requisition->save();
         return redirect()->route('requisitions.index')->with('success', 'Requisition created successfully.');
     }
@@ -57,7 +57,17 @@ class RequisitionController extends Controller
         $requisition    = Requisition::findOrFail($id);
         $data           = ['title'=>'Consumable','subtitle'=>'Edit Requisiton'];
         $form           = ['url'=>route('requisitions.update',$requisition->id),'method'=>'PUT','back'=>route('requisitions.index'),'files'=>true];
-        return view('consumable.requisitions.edit', compact('requisition','data','form'));
+        $status_label   = [
+            '0' => 'Draft',
+            '1' => 'Sent',
+            '2' => 'Approved',
+            '3' => 'Rejected',
+            '4' => 'Completed',
+            '5' => 'Cancelled',
+            '6' => 'In Progress',
+            '7' => 'Pending',
+        ];
+        return view('consumable.requisitions.edit', compact('requisition','data','form','status_label'));
     }
 
     public function update(Request $request, $id)
@@ -65,8 +75,6 @@ class RequisitionController extends Controller
         $validatedData = $request->validate([
             'requisition_no' => 'required|string|max:50',
             'requisition_type' => 'required|string',
-            'requisition_priority' => 'required|string|max:1',
-            'requisition_reason' => 'required|string|max:200',
             'requisition_description' => 'required|string',
             'requisition_file' => 'nullable|string|max:200',
             'requisition_date' => 'required|date',
@@ -78,13 +86,10 @@ class RequisitionController extends Controller
             'date_received_by_engineer' => 'nullable|date',
             'remark_by_engineer' => 'nullable|string|max:200',
             'status' => 'required|string|max:1',
-            'created_by' => 'required|string',
-            'updated_by' => 'required|string',
         ]);
 
         $requisition = Requisition::findOrFail($id);
         $requisition->update($validatedData);
-
         return redirect()->route('requisitions.index')->with('success', 'Requisition updated successfully.');
     }
 
@@ -92,14 +97,18 @@ class RequisitionController extends Controller
     {
     if (request()->ajax()) {
         $requisition = Requisition::findOrFail($id);
-        $result = $requisition->delete();
-        if($result) {
-            $response = ['success'=>true,'message'=>'Requisition has been deleted successfully.'];
-        } else {
-            $response = ['success'=>false,'message'=>'Requisition failed to delete'];
-        }
-        return response()->json($response);        
-        
+        dd($requisition);
+        /* try {
+            $result = $requisition->delete();
+            if($result) {
+                $response = ['success'=>true,'message'=>'Requisition has been deleted successfully.'];
+            } else {
+                $response = ['success'=>false,'message'=>'Requisition failed to delete. '];
+            }
+            return response()->json($response);       
+        } catch (\Throwable $th) {
+            $response = ['success'=>false,'message'=>'Failed to delete requisition. '.$th->getMessage()];
+        }  */      
     }
         return redirect()->route('requisitions.index')->with('error', 'Unable to delete requisition.');
     }

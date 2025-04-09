@@ -30,7 +30,9 @@ class ItemSeeder extends Seeder
             ['item_code' => 'unit','item_name' => 'unit','item_category' => 'unit','status' => 'Active'],
             ['item_code' => 'pcs','item_name' => 'PCS','item_category' => 'unit','status' => 'Active'],
             ['item_code' => 'Box','item_name' => 'Box','item_category' => 'unit','status' => 'Active'],
-            ['item_code' => 'Set','item_name' => 'Set','item_category' => 'unit','status' => 'Active']
+            ['item_code' => 'Set','item_name' => 'Set','item_category' => 'unit','status' => 'Active'],
+            ['item_code' => 'A. Office Consumable','item_name' => 'A. Office Consumable','item_category' => 'category of request','status' => 'Active'],
+            ['item_code' => 'B. Office Supplies','item_name' => 'B. Office Supplies','item_category' => 'category of request','status' => 'Active'],
         ];
 
         foreach ($items as $item) {

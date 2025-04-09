@@ -14,7 +14,7 @@ class CreateRequisitionsTable extends Migration
     public function up()
     {
         Schema::create('requisitions', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('requisition_no',50)->nullable();
             $table->string('requisition_type')->nullable();
             $table->string('requisition_priority',1)->default('1');

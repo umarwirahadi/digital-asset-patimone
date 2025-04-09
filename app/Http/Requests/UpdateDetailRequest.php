@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreDetailRequest extends FormRequest
+class UpdateDetailRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,7 @@ class StoreDetailRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'request_id' => 'required|exists:requisitions,id',
+        return [            
             'description_item' => 'required|string|max:255',
             'category' => 'required|string|max:100',
             'preferred_brand' => 'nullable|string|max:50',
@@ -36,8 +35,7 @@ class StoreDetailRequest extends FormRequest
 
     public function messages()
     {
-        return [
-            'request_id.required' => 'The requisition ID is required.',
+        return [            
             'request_id.exists' => 'The selected requisition ID is invalid.',
             'description_item.required' => 'The description item is required.',
             'category.required' => 'The category is required.',

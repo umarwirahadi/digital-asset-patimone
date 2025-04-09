@@ -14,8 +14,8 @@ class CreateRequisitionDetailsTable extends Migration
     public function up()
     {
         Schema::create('requisition_details', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('requisition_id');
+            $table->id();
+            $table->unsignedBigInteger('requisition_id');
             $table->string('description_item',200);
             $table->string('category',200)->nullable();
             $table->string('preferred_brand',200)->nullable();

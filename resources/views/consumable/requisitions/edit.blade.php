@@ -128,9 +128,9 @@
                                     <label for="status" class="col-sm-3 col-form-label">Status</label>
                                     <div class="col-sm-9">
                                         <select name="status" id="status" class="form-select @error('status') is-invalid @enderror">
-                                            <option value="1" {{ $requisition->status == '1' ? 'selected' : '' }}>Approved</option>
-                                            <option value="2" {{ $requisition->status == '2' ? 'selected' : '' }}>Pending</option>
-                                            <option value="3" {{ $requisition->status == '3' ? 'selected' : '' }}>Rejected</option>
+                                            @foreach ($status_label as $key => $status)
+                                                <option value="{{ $key }}" @if($requisition->status == $key) selected @endif>{{ $status }}</option>
+                                            @endforeach
                                         </select>
 
                                         @error('status')
@@ -149,7 +149,7 @@
                                         @else
                                             Save
                                         @endif
-                                        </button>
+                                        </button>                                        
                                     </div>
                                 </div>
                             </div>

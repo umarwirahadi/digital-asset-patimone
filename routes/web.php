@@ -104,12 +104,13 @@ Route::get('requisition/edit/{id}',[App\Http\Controllers\RequisitionController::
 Route::put('requisition/update/{id}',[App\Http\Controllers\RequisitionController::class,'update'])->name('requisitions.update');
 Route::delete('requisition/destroy/{id}',[App\Http\Controllers\RequisitionController::class,'destroy'])->name('requisitions.destroy');
 
-    Route::get('requisition/detail',[App\Http\Controllers\RequisitionDetailController::class,'index'])->name('requisition_detail.index');
+    Route::get('requisition/detail',[App\Http\Controllers\RequisitionDetailController::class,'index'])->name('detailreq.index');
     Route::get('requisition/detail/create',[App\Http\Controllers\RequisitionDetailController::class,'create'])->name('detailreq.create');
-    Route::post('requisition/detail/store',[App\Http\Controllers\RequisitionDetailController::class,'store'])->name('requisition_detail.store');
-    Route::get('requisition/detail/edit/{id}',[App\Http\Controllers\RequisitionDetailController::class,'edit'])->name('requisition_detail.edit');
-    Route::put('requisition/detail/update/{id}',[App\Http\Controllers\RequisitionDetailController::class,'update'])->name('requisition_detail.update');
-    Route::delete('requisition/detail/destroy/{id}',[App\Http\Controllers\RequisitionDetailController::class,'destroy'])->name('requisition_detail.destroy');
+    Route::post('requisition/detail/store',[App\Http\Controllers\RequisitionDetailController::class,'store'])->name('detailreq.store');
+    Route::get('requisition/detail/edit/{id}',[App\Http\Controllers\RequisitionDetailController::class,'edit'])->name('detailreq.edit');
+    Route::put('requisition/detail/update/{id}',[App\Http\Controllers\RequisitionDetailController::class,'update'])->name('detailreq.update');
+    Route::delete('requisition/detail/destroy/{id}',[App\Http\Controllers\RequisitionDetailController::class,'destroy'])->name('detailreq.destroy');
+    Route::delete('requisition/detail/remove-image/{id}/{image}',[App\Http\Controllers\RequisitionDetailController::class,'remove_image'])->name('detailreq.remove-image');
 
 
 
