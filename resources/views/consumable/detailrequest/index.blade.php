@@ -24,8 +24,7 @@
                                         <label for="requisition_no" class="col-sm-3 col-form-label">Request Number.</label>
                                         <div class="col-sm-9">
                                             <input type="text"
-                                                class="form-control @error('requisition_no') is-invalid @enderror"
-                                                id="code" name="code" value="{{$requisition->requisition_no}}">
+                                                class="form-control @error('requisition_no') is-invalid @enderror" value="{{$requisition->requisition_no}}" readonly>
                                             
                                         </div>
                                     </div>
@@ -34,7 +33,7 @@
                                         <div class="col-sm-9">
                                             <input type="text"
                                                 class="form-control @error('requisition_date') is-invalid @enderror"
-                                                id="requisition_date" name="requisition_date" value="{{\Carbon\Carbon::parse($requisiton->requisition_date ?? '')->format('d/m/Y')}}">
+                                                id="requisition_date" name="requisition_date" value="{{\Carbon\Carbon::parse($requisition->requisition_date)->format('d/m/Y')}}" readonly>
                                            
                                         </div>
                                     </div>
@@ -56,10 +55,11 @@
                                     
                                     <div class="row mb-3">
                                         <div class="col-8 offset-3">
-                                            <button type="button" class="btn btn-outline-success " id="addModalForm" data-url="{{route('detailreq.create',['_request_id'=>$requisition->id])}}"><i class="bi bi-plus"></i>
-                                                Add Item</button>
-                                            <button type="button" class="btn btn-outline-success " id="deleteSelected"><i class="bi bi-printer"></i> Print</button>
-                                            <button type="button" class="btn btn-outline-success " id="deleteSelected"><i class="bi bi-file-earmark-excel"></i> Export to excel</button>
+                                            <button type="button" class="btn btn-outline-success addModalForm" data-url="{{route('detailreq.create',['_request_id'=>$requisition->id])}}"><i class="bi bi-plus"></i>Add Item</button>
+                                            <button type="button" class="btn btn-outline-success addModalForm" data-url="{{route('detailreq.get.copy',['_request_id'=>$requisition->id])}}"><i class="bi bi-copy"></i> Copy from previous month</button>
+                                            <button type="button" class="btn btn-outline-success addModalForm"><i class="bi bi-printer"></i> Print</button>
+                                            <a href="{{route('detailreq.get.pdf', $requisition->id)}}" class="btn btn-outline-success"><i class="bi bi-file-earmark-pdf"></i> Generate PDF</a>
+                                            <button type="button" class="btn btn-outline-success addModalForm"><i class="bi bi-file-earmark-excel"></i> Export to excel</button>
                                         </div>
                                         
                                     </div>

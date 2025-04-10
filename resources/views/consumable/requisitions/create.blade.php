@@ -66,16 +66,12 @@
                                         @enderror
                                     </div>
                                 </div>
-                                            @php
-                                            $year_bottom = date('Y') - 3;
-                                            $year_top    = date('Y') + 7;
-                                            @endphp
                                 <div class="row mb-3">
                                     <label for="requisition_year" class="col-sm-3 col-form-label">Year </label>
                                     <div class="col-sm-9">
                                         <select name="requisition_year" id="requisition_year" class="form-select @error('requisition_year') is-invalid @enderror">
-                                            @for ($i = $year_bottom; $i <= $year_top; $i++)
-                                                <option value="{{ $i }}">{{ $i }}</option>
+                                            @for ($i = date('Y') - 2; $i <= date('Y') + 7; $i++)
+                                                <option value="{{ $i }}" {{ old('requisition_year') == $i ? 'selected' : '' }}>{{ $i }}</option>
                                             @endfor
                                         </select>
                                         @error('requisition_year')
@@ -89,18 +85,9 @@
                                     <label for="requisition_month" class="col-sm-3 col-form-label">Month</label>
                                     <div class="col-sm-9">
                                         <select name="requisition_month" id="requisition_month" class="form-select @error('requisition_month') is-invalid @enderror">
-                                            <option value="1">January</option>
-                                            <option value="2">February</option>
-                                            <option value="3">March</option>
-                                            <option value="4">April</option>
-                                            <option value="5">May</option>
-                                            <option value="6">June</option>
-                                            <option value="7">July</option>
-                                            <option value="8">August</option>
-                                            <option value="9">September</option>
-                                            <option value="10">October</option>
-                                            <option value="11">November</option>
-                                            <option value="12">December</option>
+                                            @foreach (['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] as $key => $month)
+                                                <option value="{{ $month }}" {{ old('requisition_month') == $month ? 'selected' : '' }}>{{ $month }}</option>
+                                            @endforeach
                                         </select>
                                         @error('requisition_month')
                                         <div class="invalid-feedback">

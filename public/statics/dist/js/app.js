@@ -207,7 +207,7 @@ $(document).ready(function() {
           });        
     })
 
-$(document).on('click','#addModalForm',function(e){
+$(document).on('click','.addModalForm',function(e){
     e.preventDefault();
     let url = $(this).attr('data-url');
     console.log(url);
@@ -265,14 +265,8 @@ $(document).on('click','#formItemRequest .remove-image',function(e){
         dataType:'json',        
         success:function(result){
             if(result.success){
-                Swal.fire({
-                    title: result.success ? "Success!" : "Failed!",
-                    text: result.message,
-                    icon: result.success ? "success" : "error"
-                  }).then(function(){
-                    img.siblings('img[src$="' + image + '"]').remove();
-                    img.remove();
-                  });
+                img.siblings('img[src$="' + image + '"]').remove();
+                img.remove();
             }else{
                 $.each(result.errors, function(key, value) {
                     $(`#${key}`).addClass('is-invalid');
@@ -280,9 +274,7 @@ $(document).on('click','#formItemRequest .remove-image',function(e){
                 });
             }
         }
-    });
-    
-
+    });    
 });
 
 $(document).on('click','.data-table .edit-row',function(e){

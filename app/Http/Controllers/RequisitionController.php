@@ -76,11 +76,9 @@ class RequisitionController extends Controller
             'requisition_no' => 'required|string|max:50',
             'requisition_type' => 'required|string',
             'requisition_description' => 'required|string',
-            'requisition_file' => 'nullable|string|max:200',
+            'requisition_file' => 'nullable|mimes:png,jpg,jpeg,pdf|max:10240',
             'requisition_date' => 'required|date',
-            'requisition_time' => 'nullable|time',
-            'requisition_location' => 'nullable|string',
-            'requisition_remark' => 'nullable|string',
+            'requisition_month' => 'required|string|max:20|in:January,February,March,April,May,June,July,August,September,October,November,December',
             'date_supplied_by_contractor' => 'nullable|date',
             'remark_by_contractor' => 'nullable|string|max:200',
             'date_received_by_engineer' => 'nullable|date',
@@ -97,18 +95,17 @@ class RequisitionController extends Controller
     {
     if (request()->ajax()) {
         $requisition = Requisition::findOrFail($id);
-        dd($requisition);
-        /* try {
+        try {
             $result = $requisition->delete();
             if($result) {
                 $response = ['success'=>true,'message'=>'Requisition has been deleted successfully.'];
             } else {
-                $response = ['success'=>false,'message'=>'Requisition failed to delete. '];
+                $response = ['success'=>false,'message'=>'Requisition failed to delete, Check the details requested.'];
             }
             return response()->json($response);       
         } catch (\Throwable $th) {
             $response = ['success'=>false,'message'=>'Failed to delete requisition. '.$th->getMessage()];
-        }  */      
+        }       
     }
         return redirect()->route('requisitions.index')->with('error', 'Unable to delete requisition.');
     }

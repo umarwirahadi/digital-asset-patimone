@@ -50,8 +50,8 @@ class Requisition extends Model
             $model->updated_by = auth()->id();
         });
         static::deleting(function ($model) {
-            if ($model->details()->count() > 0) {
-                throw new \Exception('You cannot delete this requisition because it has related requisition details.');               
+            if ($model->details()->count() > 0) {                
+                return false;
             }            
         });
 
@@ -59,7 +59,7 @@ class Requisition extends Model
 
     public function details()
     {
-        return $this->hasMany(RequisitionDetail::class, 'requisition_id', 'id');
+        return $this->hasMany(RequisitionDetail::class, 'requisition_id', 'id')->orderBy('category');
     }
 
     public function createdBy()

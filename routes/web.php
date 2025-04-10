@@ -111,6 +111,9 @@ Route::delete('requisition/destroy/{id}',[App\Http\Controllers\RequisitionContro
     Route::put('requisition/detail/update/{id}',[App\Http\Controllers\RequisitionDetailController::class,'update'])->name('detailreq.update');
     Route::delete('requisition/detail/destroy/{id}',[App\Http\Controllers\RequisitionDetailController::class,'destroy'])->name('detailreq.destroy');
     Route::delete('requisition/detail/remove-image/{id}/{image}',[App\Http\Controllers\RequisitionDetailController::class,'remove_image'])->name('detailreq.remove-image');
+    Route::get('/requisition/detail/get-copy',[App\Http\Controllers\RequisitionDetailController::class,'get_copy_form'])->name('detailreq.get.copy');
+    Route::post('/requisition/detail/copy',[App\Http\Controllers\RequisitionDetailController::class,'copy_record'])->name('detailreq.copy');
+    Route::get('/requisition/detail/generate-pdf/{id}',[App\Http\Controllers\RequisitionDetailController::class,'generate_pdf'])->name('detailreq.get.pdf');
 
 
 

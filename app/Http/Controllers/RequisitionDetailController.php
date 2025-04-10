@@ -6,7 +6,9 @@ use App\Http\Requests\StoreDetailRequest;
 use App\Http\Requests\UpdateDetailRequest;
 use App\Models\Requisition;
 use App\Models\RequisitionDetail;
+use PDF;
 use DB;
+use Illuminate\Http\Request;
 
 class RequisitionDetailController extends Controller
 {
@@ -136,18 +138,19 @@ class RequisitionDetailController extends Controller
     {
         try {
             $req_detail = RequisitionDetail::findOrFail($id);
-            $result = $req_detail->delete();
-            //catch (\Throwable $th) and parse to json
-            
-
-
+            // Delete the associated photos
+            if ($req_detail->photo) {
+                $photos = json_decode($req_detail->photo, true);
+                foreach ($photos as $photo) {
+                    if (file_exists(public_path('requisition_attachments/' . $photo))) {
+                        unlink(public_path('requisition_attachments/' . $photo));
+                    }
+                }
+            }
+            $result = $req_detail->delete();          
             if (!$result) {
                 return response()->json(['success'=>false,'message' => 'Failed to delete requisition detail.'], 200);
             }
-
-
-
-
             return response()->json(['success'=>true,'message' => 'Requisition Detail deleted successfully.']);
         } catch (\Throwable $th) {
 
@@ -166,7 +169,6 @@ class RequisitionDetailController extends Controller
                 }
                 unlink(public_path('requisition_attachments/' . $image));
             }
-            // If no photos left, set photo to null
             if (empty($photos)) {
                 $req_detail->photo = null;
             } else {
@@ -179,8 +181,64 @@ class RequisitionDetailController extends Controller
         }
     }
 
+    public function get_copy_form()
+    {
+        $request_id = request()->query('_request_id');
+        $requisition = Requisition::find($request_id);
+        if (!$requisition) {
+            return response()->json(['error' => 'Requisition not found.'], 404);
+        }
+        $requisitions = Requisition::where('id','!=', $requisition->id)->where('created_at','<', now())            
+        ->get();
+        $data = ['title' => 'Requisition Detail', 'subtitle' => 'Copy Requisition Detail'];
+        $form = ['url' => route('detailreq.copy'), 'method' => 'POST', 'files' => true];
+        $html = view('consumable.detailrequest.copyprev', compact('data', 'form', 'requisition', 'requisitions'))->render();
+        return response()->json($html);
+    }
 
+    public function copy_record(Request $request)
+    {
+        try {
+            $prevRequestId = $request->prev_request_id;
+            $currentRequestId = $request->request_id;
+            $requisition = Requisition::with('details')->find($prevRequestId);
+            if (!$requisition) {
+                return response()->json(['success' => false, 'message' => 'Requisition not found.'], 404);
+            }
+            RequisitionDetail::where('requisition_id', $currentRequestId)->delete();
+            $newDetails = $requisition->details->map(function ($detail) use ($currentRequestId) {
+                return [
+                    'requisition_id' => $currentRequestId,
+                    'description_item' => $detail->description_item,
+                    'preferred_brand' => $detail->preferred_brand,
+                    'unit' => $detail->unit,
+                    'quantity' => $detail->quantity,
+                    'category' => $detail->category,
+                    'request_date' => now()->toDateString(),
+                    'request_status' => '0',
+                    'photo' => $detail->photo,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'created_by' => auth()->id(),
+                    'updated_by' => auth()->id(),
+                ];
+            })->toArray();
+            RequisitionDetail::insert($newDetails);
+            return response()->json(['success' => true, 'message' => 'Requisition detail copied successfully.']);
+        } catch (\Throwable $th) {
+            return response()->json(['success' => false, 'message' => 'Failed to copy requisition detail. ' . $th->getMessage()], 500);
+        }
+    }
 
-
+    public function generate_pdf($id)
+    {
+        $requisition = Requisition::with('details')->find($id);
+        if (!$requisition) {
+            return response()->json(['error' => 'Requisition not found.'], 404);
+        }
+        $pdf = PDF::loadView('consumable.detailrequest.pdf', compact('requisition'));
+        return $pdf->download('requisition_detail_' . $requisition->requisition_no . '.pdf');
+    }
+    
 
 }

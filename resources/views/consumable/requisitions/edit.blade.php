@@ -80,20 +80,10 @@
                                 <div class="row mb-3">
                                     <label for="requisition_month" class="col-sm-3 col-form-label">Month</label>
                                     <div class="col-sm-9">
-                                        <select name="requisition_month" id="requisition_month" class="form-select @error('requisition_month') is-invalid @enderror">
-                                            
-                                            <option value="1" @if($requisition->requisition_month == '1') selected @endif >January</option>
-                                            <option value="2" @if($requisition->requisition_month == '2') selected @endif >February</option>
-                                            <option value="3" @if($requisition->requisition_month == '3') selected @endif >March</option>
-                                            <option value="4" @if($requisition->requisition_month == '4') selected @endif >April</option>
-                                            <option value="5" @if($requisition->requisition_month == '5') selected @endif >May</option>
-                                            <option value="6" @if($requisition->requisition_month == '6') selected @endif >June</option>
-                                            <option value="7" @if($requisition->requisition_month == '7') selected @endif >July</option>
-                                            <option value="8" @if($requisition->requisition_month == '8') selected @endif >August</option>
-                                            <option value="9" @if($requisition->requisition_month == '9') selected @endif >September</option>
-                                            <option value="10" @if($requisition->requisition_month == '10') selected @endif >October</option>
-                                            <option value="11" @if($requisition->requisition_month == '11') selected @endif >November</option>
-                                            <option value="12" @if($requisition->requisition_month == '12') selected @endif >December</option>
+                                        <select name="requisition_month" id="requisition_month" class="form-select @error('requisition_month') is-invalid @enderror">                                            
+                                            @foreach (['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] as $key => $month)
+                                                <option value="{{ $month }}" {{ $requisition->requisition_month == $month ? 'selected' : '' }}>{{ $month }}</option>
+                                            @endforeach
                                         </select>
                                         @error('requisition_month')
                                         <div class="invalid-feedback">
@@ -123,7 +113,47 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="row mb-3">
+                                    <label for="date_supplied_by_contractor" class="col-sm-3 col-form-label">Supplied date (The Contractor)</label>
+                                    <div class="col-sm-9">
+                                        <input type="date"
+                                            class="form-control @error('date_supplied_by_contractor') is-invalid @enderror"
+                                            id="date_supplied_by_contractor" name="date_supplied_by_contractor" value="{{ $requisition->date_supplied_by_contractor }}">
+                                        @error('date_supplied_by_contractor')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="remark_by_contractor" class="col-sm-3 col-form-label">Remark (Contractor)</label>
+                                    <div class="col-sm-9">
+                                        <textarea name="remark_by_contractor" id="remark_by_contractor" cols="30" rows="3"
+                                            class="form-control">{{$requisition->remark_by_contractor ?? ''}}</textarea>
+                                    </div>
+                                </div>
 
+                                <div class="row mb-3">
+                                    <label for="date_received_by_engineer" class="col-sm-3 col-form-label">Received By Engineer</label>
+                                    <div class="col-sm-9">
+                                        <input type="date"
+                                            class="form-control @error('date_received_by_engineer') is-invalid @enderror"
+                                            id="date_received_by_engineer" name="date_received_by_engineer" value="{{ $requisition->date_received_by_engineer }}">
+                                        @error('date_received_by_engineer')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="remark_by_contractor" class="col-sm-3 col-form-label">Remark (engineer)</label>
+                                    <div class="col-sm-9">
+                                        <textarea name="remark_by_engineer" id="remark_by_engineer" cols="30" rows="3"
+                                            class="form-control">{{$requisition->remark_by_engineer ?? ''}}</textarea>
+                                    </div>
+                                </div>
                                 <div class="row mb-3">
                                     <label for="status" class="col-sm-3 col-form-label">Status</label>
                                     <div class="col-sm-9">

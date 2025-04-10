@@ -66,8 +66,9 @@ return [
     | ahead and set this to a sensible default for you out of the box.
     |
     */
+    'timezone' => 'Asia/Jakarta',
+    // 'timezone' => 'UTC',
 
-    'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,6 +177,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         \Yajra\DataTables\DataTablesServiceProvider::class,
         \Intervention\Image\ImageServiceProvider::class,
+        \Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -228,6 +230,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
+        
 
     ],
 

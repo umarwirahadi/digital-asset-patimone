@@ -31,7 +31,6 @@
                                 <th>Req. No</th>
                                 <th>Month</th>
                                 <th>Year</th>
-                                <th>Req. Type</th>
                                 <th>Description</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -44,7 +43,6 @@
                                     <td><a href="{{route('detailreq.index', ['_request_id'=>$requisition->id])}}">{{ $requisition->requisition_no }}</a></td>
                                     <td>{{ $requisition->requisition_month }}</td>
                                     <td>{{ $requisition->requisition_year }}</td>
-                                    <td>{{ $requisition->requisition_type }}</td>
                                     <td>{{ $requisition->requisition_description }}</td>
                                     <td>
                                        <span class="{{ $requisition->status_class }}">{{ $requisition->status_label }}</span>

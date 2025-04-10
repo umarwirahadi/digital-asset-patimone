@@ -51,9 +51,7 @@
                     @if($requisition_detail->photo)                    
                         <label>Existing Images:</label><br>
                         @foreach (json_decode($requisition_detail->photo) as $photo)
-                        {{-- add remove icon for each image--}}
                         <a href="javascript:void(0)" class="remove-image" data-image="{{ $photo }}" data-url="{{route('detailreq.remove-image',[$requisition_detail->id,$photo])}}" style="color: red; margin-right: 5px;"> <span class="bi bi-x-circle"></span></a>
-                        {{-- end remove icon --}}                      
                         <img src="{{ asset('requisition_attachments/' . $photo) }}" alt="Image" style="width: 100px; margin-right: 10px;">
                         @endforeach                        
                     @endif
