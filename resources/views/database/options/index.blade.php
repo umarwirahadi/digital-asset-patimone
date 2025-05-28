@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header p-1">
-            <h3 class="card-title"><a href="{{ route('category.create') }}" class="btn btn-outline-secondary"><i class="bi bi-file-earmark-plus"></i> New Category</a></h3>
+            <h3 class="card-title"><a href="{{ route('options.create') }}" class="btn btn-link"><i class="bi bi-file-earmark-plus"></i> Add new</a></h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse" title="Collapse">
                         <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
@@ -24,34 +24,39 @@
                 @endif
 
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-sm table-hover data-table">
+                    <table class="table table-sm table-bordered data-table">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Category Name</th>
-                                <th>Description</th>
+                                <th>Option Name</th>
+                                <th>Value</th>
+                                <th>Type</th>
+                                <th>Group</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data['categories'] as $key=>$category)
+                            @foreach ($options as $option)
                                 <tr>
-                                    <td>{{ ++$key }}</td>
-                                    <td>{{ $category->category_name }}</td>
-                                    <td>{{ $category->description }}</td>
-                                    <td>{!! $category->status !!}</td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $option->option_name }}</td>
+                                    <td>{{ $option->option_value }}</td>
+                                    <td>{{ $option->option_type }}</td>
+                                    <td>{{ $option->option_group }}</td>
+                                    <td>{!! $option->status == '1' ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Not Active</span>' !!}</td>
                                     <td>
-                                        <a href="{{ route('category.edit',$category->id) }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil-square"></i> Edit</a>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary btn-destroy" data-url="{{ route('category.destroy',$category->id) }}"><i class="bi bi-trash3"></i> Delete</button>
+                                        <a href="{{ route('options.edit', $option->id) }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil-square"></i> Edit</a>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary btn-destroy" data-url="{{ route('options.destroy', $option->id) }}"><i class="bi bi-trash3"></i> Delete</button>
                                     </td>
                                 </tr>
+                                
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="card-footer">Data Categories</div>
+            <div class="card-footer">Data Packages</div>
         </div>
     </div>
 </div>

@@ -47,7 +47,7 @@
                                     <div class="col-sm-9">
                                         <select name="status" id="status" class="form-select">
                                             @php
-                                                $cat = $data['package']->status;
+                                                $cat = $data['category']->status;
                                             @endphp
                                             <option value="1" @if ($cat == '1') selected @endif>Active</option>
                                             <option value="0" @if ($cat == '0') selected @endif>Not Active</option>

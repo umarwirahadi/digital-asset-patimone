@@ -24,7 +24,7 @@
                 @endif
 
                 <div class="table-responsive">
-                    <table class="table table-sm table-borderless table-hover data-table">
+                    <table class="table table-sm table-bordered data-table">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -52,8 +52,8 @@
                                     </td>
                                     <td>{!! $package->status == '1' ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Not Active</span>' !!}</td>
                                     <td>
-                                        <a href="{{ route('package.edit',$package->id) }}" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>
-                                        <button type="button" class="btn btn-sm btn-danger btn-destroy" data-url="{{ route('package.destroy',$package->id) }}"><i class="bi bi-trash3"></i> Delete</button>
+                                        <a href="{{ route('package.edit',$package->id) }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil-square"></i> Edit</a>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary btn-destroy" data-url="{{ route('package.destroy',$package->id) }}"><i class="bi bi-trash3"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach

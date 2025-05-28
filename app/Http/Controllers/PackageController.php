@@ -53,13 +53,14 @@ class PackageController extends Controller
         ]);
 
         $category = Package::findOrFail($id);
-        $category->update([
-            'package_name' => $validatedData['package_name'] ?? $category->package_name,
-            'short_name' => $validatedData['short_name'] ?? $category->short_name,
-            'description' => $validatedData['description'] ?? $category->description,
-            'status' => isset($validatedData['status']) ? $validatedData['status'] : $category->status,
-        ]);
-        return redirect()->route('category.index')->with('success', 'Category updated successfully.');
+        $category->package_name = $validatedData['package_name'] ?? $category->package_name;
+        $category->short_name = $validatedData['short_name'] ?? $category->short_name;
+        $category->description = $validatedData['description'] ?? $category->description;
+        $category->is_show = $validatedData['status'] == '0' ? 'no' : ($category->is_show == 'no' ? 'no' : 'yes');
+        $category->status = isset($validatedData['status']) ? $validatedData['status'] : $category->status;
+        $category->save();
+
+        return redirect()->route('package.index')->with('success', 'Package updated successfully.');
     }
     public function destroy($id){
         try {

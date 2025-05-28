@@ -55,6 +55,18 @@
                                     </div>
                                 </div> --}}
                                 <div class="row mb-3">
+                                    <label for="code_index" class="col-sm-3 col-form-label">Code Index</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control @error('code_index') is-invalid @enderror"
+                                            id="code_index" name="code_index" value="{{ old('code_index') }}">
+                                        @error('code_index')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
                                     <label for="name" class="col-sm-3 col-form-label">Product Name</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control @error('name') is-invalid @enderror"

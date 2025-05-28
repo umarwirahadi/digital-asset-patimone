@@ -54,6 +54,12 @@
                             <p>Items</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                    <a href="{{ route('options.index') }}" class="nav-link">
+                            <i class="nav-icon bi bi-arrow-right"></i>
+                            <p>Options</p>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item">
@@ -67,7 +73,7 @@
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ route('requisitions.index') }}" class="nav-link">
-                            <i class="nav-icon bi bi-circle"></i>
+                            <i class="nav-icon bi bi-arrow-right"></i>
                             <p>Request</p>
                         </a>
                     </li>
@@ -76,13 +82,13 @@
 
                     <li class="nav-item">
                         <a href="../layout/logo-switch.html" class="nav-link">
-                            <i class="nav-icon bi bi-circle"></i>
+                            <i class="nav-icon bi bi-arrow-right"></i>
                             <p>Sidebar Mini <small>+ Logo Switch</small></p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="../layout/layout-rtl.html" class="nav-link">
-                            <i class="nav-icon bi bi-circle"></i>
+                            <i class="nav-icon bi bi-arrow-right"></i>
                             <p>Layout RTL</p>
                         </a>
                     </li>
@@ -92,32 +98,32 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon bi bi-tree-fill"></i>
                     <p>
-                        Assets
+                        Office Equipment
                         <i class="nav-arrow bi bi-chevron-right"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ route('product.index') }}" class="nav-link">
-                            <i class="nav-icon bi bi-circle"></i>
+                            <i class="nav-icon bi bi-arrow-right"></i>
                             <p>Product</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="../UI/general.html" class="nav-link">
-                            <i class="nav-icon bi bi-circle"></i>
+                            <i class="nav-icon bi bi-arrow-right"></i>
                             <p>Procurement</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('asset.distribution.index') }}" class="nav-link">
-                            <i class="nav-icon bi bi-circle"></i>
+                            <i class="nav-icon bi bi-arrow-right"></i>
                             <p>Distribution</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="../UI/timeline.html" class="nav-link">
-                            <i class="nav-icon bi bi-circle"></i>
+                            <i class="nav-icon bi bi-arrow-right"></i>
                             <p>DO</p>
                         </a>
                     </li>
@@ -134,7 +140,7 @@
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="../forms/general.html" class="nav-link">
-                            <i class="nav-icon bi bi-circle"></i>
+                            <i class="nav-icon bi bi-arrow-right"></i>
                             <p>General Elements</p>
                         </a>
                     </li>

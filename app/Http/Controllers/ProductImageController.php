@@ -20,7 +20,6 @@ class ProductImageController extends Controller
         $product_code = request()->query('code');
         request()->session()->put('code',$product_code);
         $product = Product::with('images')->where('code',$product_code)->first();
-
         $data = ['title'=>'Assets','subtitle'=>'Photo of '.$product->name,'product'=>$product];        
          return view('assets.photoproduct.index',compact('data'));
     }

@@ -45,7 +45,7 @@
                                     <td>{{ $employee->full_name }}</td>
                                     <td>{{ $employee->phone }}</td>
                                     <td>{{ $employee->email }}</td>
-                                    <td>{{ $employee->position->position_name }}</td>
+                                    <td>{{ $employee->position->position_name ?? '-' }}</td>
                                     <td>{!! $employee->status == '1' ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Not Active</span>' !!}</td>
                                     <td>
                                         <a href="{{ route('employee.edit',$employee->id) }}" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>

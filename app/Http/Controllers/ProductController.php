@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Package;
 use App\Models\Product;
+use Barryvdh\DomPDF\Facade\Pdf;
+use DB;
+// use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -16,7 +19,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $data = ['title'=>'Assets','subtitle'=>'List of Products','products'=>Product::all()];
+        $data = ['title'=>'Assets','subtitle'=>'List of Products','products'=>Product::all(),'categories'=>Category::all(),'packages'=>Package::isShow()->get()];        
         return view('assets.products.index',compact('data'));
     }
 
@@ -30,6 +33,7 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'package_id' => 'required|exists:packages,id',
             // 'code' => 'required|string|max:30|unique:products,code',
+            'code_index' => 'required|string|max:50|unique:products,code_index',
             'name' => 'required|string|max:200',
             'quantity' => 'required|integer',
             'unit' => 'required|string|max:50',
@@ -41,6 +45,7 @@ class ProductController extends Controller
             'is_warranty' => 'required|string|in:yes,no',
             'warranty_start_date' => 'nullable|date',
             'warranty_end_date' => 'nullable|date',
+            'location' => 'required|string|max:255',
             'file_path' => 'nullable|mimes:pdf,xlsx,xls',
         ]);
            
@@ -48,6 +53,7 @@ class ProductController extends Controller
             $product->category_id       = $validatedData['category_id'];
             $product->package_id        = $validatedData['package_id'];
             $product->code              = $this->generateProductCode();
+            $product->code_index        = $validatedData['code_index']; 
             $product->name              = $validatedData['name'];
             $product->quantity          = $validatedData['quantity'];
             $product->unit              = $validatedData['unit'];
@@ -58,6 +64,7 @@ class ProductController extends Controller
             $product->delivery_no       = $validatedData['delivery_no'];
             $product->delivery_from     = $request->delivery_from;
             $product->tags              = $request->tags ?? '';
+            $product->location          = $validatedData['location'];
             if($request->hasFile('file_path')){
                 $image          = $request->file('file_path');
                 $unique_name    = uniqid().'-'.time().'.'.$image->getClientOriginalExtension();
@@ -82,7 +89,7 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'category_id' => 'required|exists:categories,id',
             'package_id' => 'required|exists:packages,id',
-            // 'code' => 'required|string|max:30|unique:products,code,'.$id,
+            'code_index' => 'required|string|max:50|unique:products,code_index,'.$id,
             'name' => 'required|string|max:200',
             'quantity' => 'required|integer',
             'unit' => 'required|string|max:50',
@@ -94,6 +101,7 @@ class ProductController extends Controller
             'is_warranty' => 'required|string|in:yes,no',
             'warranty_start_date' => 'nullable|date',
             'warranty_end_date' => 'nullable|date',
+            'location' => 'required|string|max:255',
             'status' => 'required|in:1,0',
         ]);        
         $product= Product::findOrFail($id);        
@@ -101,6 +109,7 @@ class ProductController extends Controller
         $product->package_id = $validatedData['package_id'];
         // $product->code = $validatedData['code'];
         $product->name = $validatedData['name'];
+        $product->code_index = $validatedData['code_index'];
         $product->quantity = $validatedData['quantity'];
         $product->unit = $validatedData['unit'];
         $product->description = $validatedData['description'];
@@ -114,8 +123,9 @@ class ProductController extends Controller
         $product->warranty_start_date = $validatedData['warranty_start_date'];
         $product->warranty_end_date = $validatedData['warranty_end_date'];
         $product->status = $validatedData['status'];
-        $product->update();
-        return redirect()->route('product.index')->with('success', 'Product has been updated!.');   
+        $product->location          = $validatedData['location'];
+        $product->save(); // Changed from $product->update() to $product->save()
+        return redirect()->route('product.index')->with('success', 'Product has been updated successfully!');   
     }
     public function destroy($id){
         try {
@@ -140,12 +150,32 @@ class ProductController extends Controller
     {
         $lastProduct = Product::orderBy('id', 'desc')->first();
         if (!$lastProduct) {
-            return 'P0001';
+            return 'PTB0001';
         }
         $lastCode = $lastProduct->code;
-        $number = (int) substr($lastCode, 1);
+        $number = (int) substr($lastCode, 3);
         $newNumber = $number + 1;
-        return 'P' . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+        return 'PTB' . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+    }
+
+    /*
+    * Generate and return a view for printing product label.
+    * This view can be used to generate a PDF for printing.
+    *
+    * @param int $id
+    * @return \Illuminate\View\View
+    * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+    * @throws \Exception 
+    print label PDF  
+    */
+    public function printLabel($id)
+    {
+        $product = Product::findOrFail($id);        
+        $options = ['background_color'=>DB::table('options')->where('option_name','background_color_label')->value('option_value')];
+        // return $options;
+        // You can use a PDF library like DomPDF to generate a PDF if needed
+        $pdf = Pdf::loadView('assets.products.label', compact('product', 'options'));
+        return $pdf->download('product_label.pdf');
     }
 
 

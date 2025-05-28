@@ -54,6 +54,15 @@ Route::put('package/update/{id}',[App\Http\Controllers\PackageController::class,
 Route::delete('package/{id}',[App\Http\Controllers\PackageController::class,'destroy'])->name('package.destroy');
 Route::get('package/{id}/is-show/',[App\Http\Controllers\PackageController::class,'change_is_show'])->name('package.is-show');
 
+
+Route::get('option',[App\Http\Controllers\OptionController::class,'index'])->name('options.index');
+Route::get('option/create',[App\Http\Controllers\OptionController::class,'create'])->name('options.create');
+Route::post('option/store',[App\Http\Controllers\OptionController::class,'store'])->name('options.store');
+Route::get('option/edit/{id}',[App\Http\Controllers\OptionController::class,'edit'])->name('options.edit');
+Route::put('option/update/{id}',[App\Http\Controllers\OptionController::class,'update'])->name('options.update');
+Route::delete('option/{id}',[App\Http\Controllers\OptionController::class,'destroy'])->name('options.destroy');
+Route::get('option/{id}/is-active',[App\Http\Controllers\OptionController::class,'changeStatus'])->name('options.is-active');
+
 Route::get('items/',[App\Http\Controllers\ItemController::class,'index'])->name('items.index');
 Route::get('items/create',[App\Http\Controllers\ItemController::class,'create'])->name('items.create');
 Route::post('items/store',[App\Http\Controllers\ItemController::class,'store'])->name('items.store');
@@ -68,6 +77,7 @@ Route::post('product/store',[App\Http\Controllers\ProductController::class,'stor
 Route::get('product/edit/{id}',[App\Http\Controllers\ProductController::class,'edit'])->name('product.edit');
 Route::put('product/update/{id}',[App\Http\Controllers\ProductController::class,'update'])->name('product.update');
 Route::delete('product/{id}',[App\Http\Controllers\ProductController::class,'destroy'])->name('product.destroy');
+Route::get('product/{id}/print-label',[App\Http\Controllers\ProductController::class,'printLabel'])->name('product.print.label');
 
 Route::get('product/photo/',[App\Http\Controllers\ProductImageController::class,'index'])->name('product.photo.index');
 Route::get('product/photo/create-photo',[App\Http\Controllers\ProductImageController::class,'create'])->name('product.photo.create');

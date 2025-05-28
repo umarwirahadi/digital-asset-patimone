@@ -48,6 +48,18 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
+                                    <label for="code_index" class="col-sm-3 col-form-label">Code Index</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control @error('code_index') is-invalid @enderror"
+                                            id="code_index" name="code_index" value="{{ $data['product']->code_index }}">
+                                        @error('code_index')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
                                     <label for="code" class="col-sm-3 col-form-label">Product code</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control @error('code') is-invalid @enderror"
@@ -222,6 +234,16 @@
                                             <option value="1" @if ($cat == '1') selected @endif>Active</option>
                                             <option value="0" @if ($cat == '0') selected @endif>Not Active</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="location" class="col-sm-3 col-form-label">Location</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control @error('location') is-invalid @enderror"
+                                            id="location" name="location" value="{{ $data['product']->location }}"
+                                            placeholder="Location of the product">
+
+                                        
                                     </div>
                                 </div>
                               
